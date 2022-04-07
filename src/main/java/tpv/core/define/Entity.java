@@ -2,24 +2,50 @@ package tpv.core.define;
 
 import java.time.LocalDate;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import tpv.core.annotation.Column;
 import tpv.core.define.enm.ColumnType;
+import tpv.core.query.exprs.ColExpr;
 
-@Data
 public class Entity {
-	@Column(name = "ID", type = ColumnType.ID)
-	private String id;
+	/********************************
+	 * Column ID
+	 ********************************/
+	final static String COLUMN___ID = "ID";
+	public final static ColExpr ID = new ColExpr(COLUMN___ID);
+	@Column(name = COLUMN___ID, type = ColumnType.ID)
+	@Getter @Setter private String id;
 
-	@Column(name = "CREATED_BY", type = ColumnType.REFERENCE, referTo = UserEntity.class)
-	private String createdBy;
+	/********************************
+	 * Column CREATED_BY
+	 ********************************/
+	final static String COLUMN___CREATED_BY = "CREATED_BY";
+	public final static ColExpr CREATED_BY = new ColExpr(COLUMN___CREATED_BY);
+	@Column(name = COLUMN___CREATED_BY, type = ColumnType.REFERENCE, referTo = UserEntity.class)
+	@Getter @Setter private String createdBy;
 
-	@Column(name = "CREATED_DATE", type = ColumnType.DATE_TIME)
-	private LocalDate createdDate;
+	/********************************
+	 * Column CREATED_DATE
+	 ********************************/
+	final static String COLUMN___CREATED_DATE = "CREATED_DATE";
+	public final static ColExpr CREATED_DATE = new ColExpr(COLUMN___CREATED_DATE);
+	@Column(name = COLUMN___CREATED_DATE, type = ColumnType.DATE_TIME)
+	@Getter @Setter private LocalDate createdDate;
 
-	@Column(name = "UPDATED_BY", type = ColumnType.REFERENCE, referTo = UserEntity.class)
-	private String updatedBy;
+	/********************************
+	 * Column UPDATED_BY
+	 ********************************/
+	final static String COLUMN___UPDATED_BY = "UPDATED_BY";
+	public final static ColExpr UPDATED_BY = new ColExpr(COLUMN___UPDATED_BY);
+	@Column(name = COLUMN___UPDATED_BY, type = ColumnType.REFERENCE, referTo = UserEntity.class)
+	@Getter @Setter private String updatedBy;
 
-	@Column(name = "UPDATED_DATE", type = ColumnType.DATE_TIME)
-	private String updatedDate;
+	/********************************
+	 * Column UPDATED_DATE
+	 ********************************/
+	final static String COLUMN___UPDATED_DATE = "UPDATED_DATE";
+	public final static ColExpr UPDATED_DATE = new ColExpr(COLUMN___UPDATED_DATE);
+	@Column(name = COLUMN___UPDATED_DATE, type = ColumnType.DATE_TIME)
+	@Getter @Setter private String updatedDate;
 }

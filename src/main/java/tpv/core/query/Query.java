@@ -35,6 +35,10 @@ public class Query {
 	public Query offset(Long offset) { this.offset = offset; return this; }
 
 	/******************************************
+	 * PUBLIC SUPPORTER METHODS for OUTPUT
+	 ******************************************/
+
+	/******************************************
 	 * PRIVATE METHODS
 	 ******************************************/
 	private Query loadExprs(List<Expr> list, Expr... exprs) { 

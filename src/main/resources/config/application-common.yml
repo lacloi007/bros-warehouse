@@ -1,0 +1,21 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+    session:
+      timeout: 36000
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      exclude: static/**,templates/**
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
