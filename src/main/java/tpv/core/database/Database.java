@@ -25,7 +25,7 @@ public class Database {
 	public static <T extends Entity> void delete(T record) {
 	}
 
-	public static <T extends Entity> List<T> query2List(String sql, Map<String, Object> parameters) {
+	public static <T extends Entity> List<T> query2List(String sql, List<String> params) {
 		return List.of();
 	}
 

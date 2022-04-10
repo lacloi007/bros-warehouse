@@ -8,15 +8,16 @@ import tpv.core.query.exprs.Expr;
 import tpv.core.table.Entity;
 
 public class Query {
+	static final String LineSeparator = System.lineSeparator();
+
 	/*********************
 	 * MAIN VARIABLE
 	 *********************/
 	List<Expr> selectExprs, whereExprs, orderByExprs, groupByExprs;
 	Class<? extends Entity> fromEntity;
-	String fromAlias;
 	Long limit, offset;
 
-	private RuntimeStorage rs;
+	QueryRuntimeStorage qrs;
 
 	/******************************************
 	 * CONSTRUCTOR
@@ -32,22 +33,24 @@ public class Query {
 	/******************************************
 	 * PUBLIC SUPPORTER METHODS
 	 ******************************************/
-	public static Query select(Expr... exprs) { Query instance = new Query(); return instance.addExprs(instance.selectExprs, exprs); }
-	public Query where(Expr... exprs) { return addExprs(whereExprs, exprs); }
-	public Query orderBy(Expr... exprs) { return addExprs(orderByExprs, exprs); }
-	public Query groupBy(Expr... exprs) { return addExprs(groupByExprs, exprs); }
-	public Query limit(Long limit) { this.limit = limit; return this; }
-	public Query offset(Long offset) { this.offset = offset; return this; }
-	public Query from(Class<? extends Entity> entityClass) { this.fromEntity = entityClass; return this; }
+	public static Query select(Expr... exprs) { Query instance = new Query(); return instance.setter(instance.selectExprs, exprs); }
+	public Query where(Expr... exprs) { return setter(whereExprs, exprs); }
+	public Query orderBy(Expr... exprs) { return setter(orderByExprs, exprs); }
+	public Query groupBy(Expr... exprs) { return setter(groupByExprs, exprs); }
+	public Query limit(Long limit) { return setter(this.limit, limit); }
+	public Query offset(Long offset) { return setter(this.offset, offset); }
+	public Query from(Class<? extends Entity> entityClass) { return setter(fromEntity, entityClass); }
 
 	/******************************************
 	 * PUBLIC SUPPORTER METHODS for OUTPUT
 	 ******************************************/
+	public QueryRuntimeStorage runtime() { return this.qrs; }
 
 	/******************************************
-	 * PRIVATE METHODS
+	 * PRIVATE METHODS FOR SUPPORT
 	 ******************************************/
-	private Query addExprs(List<Expr> list, Expr... exprs) { if (exprs != null && exprs.length > 0) list.addAll(List.of(exprs)); return this; }
+	private Query setter(List<Expr> list, Expr... exprs) { if (exprs != null && exprs.length > 0) list.addAll(List.of(exprs)); return this; }
+	private Query setter(Object src, Object dst) { src = dst; return this; }
 
 	/******************************************
 	 * feature SELECT DEFAULT COLUMNS <br>
@@ -62,21 +65,40 @@ public class Query {
 	 * BUILDING SQL METHODS
 	 ******************************************/
 	public String build() {
-		rs = new RuntimeStorage(this);
+		qrs = new QueryRuntimeStorage(this);
 
 		String where = createSqlBlock(BlockType.where);
 		String groupBy = createSqlBlock(BlockType.groupBy);
 		String orderBy = createSqlBlock(BlockType.orderBy);
 		String select = createSqlBlock(BlockType.select);
-		return "";
+		String from = createSqlBlockFrom();
+
+		// make SQL
+		StringBuilder sb = new StringBuilder();
+		sb.append(select).append(LineSeparator).append(from);
+		if (where.isEmpty() == false) sb.append(LineSeparator).append(where);
+		if (groupBy.isEmpty() == false) sb.append(LineSeparator).append(groupBy);
+		if (orderBy.isEmpty() == false) sb.append(LineSeparator).append(orderBy);
+		if (offset != null) sb.append(LineSeparator).append(String.format("OFFSET %d ROWS", offset));
+		if (limit != null) sb.append(LineSeparator).append(String.format("FETCH FIRST %d ROWS ONLY", limit));
+		return sb.toString();
 	}
 
+	/******************************************
+	 * PRIVATE METHOD FOR BUILDING
+	 ******************************************/
+
+	/**
+	 * @param type
+	 * @return
+	 */
 	private String createSqlBlock(BlockType type) {
-		rs.currentSqlBlock = type;
+		qrs.currentSqlBlock = type;
 		List<Expr> exprs = expression(type);
 		if (exprs == null || exprs.isEmpty())
 			return "";
 
+		// load content from expressions
 		List<String> contents = new ArrayList<>();
 		for (Expr expr : exprs)
 			contents.add(expr.gen(this));
@@ -96,45 +118,30 @@ public class Query {
 		}
 	}
 
-	private String createSqlBlock4From() {
-		StringBuilder sb = new StringBuilder();
-		//sb.append(String.format("FROM %s", null))
-		return "";
+	/**
+	 * @return
+	 */
+	private String createSqlBlockFrom() {
+		return String.format("FROM %s", qrs.tableName);
 	}
 
+	/**
+	 * @param type
+	 * @return
+	 */
 	private List<Expr> expression(BlockType type) {
 		switch (type) {
-		case select: return rs.select;
-		case where: return rs.where;
-		case orderBy: return rs.orderBy;
-		case groupBy: return rs.groupBy;
+		case select: return qrs.select;
+		case where: return qrs.where;
+		case orderBy: return qrs.orderBy;
+		case groupBy: return qrs.groupBy;
 		default:
 			return null;
 		}
 	}
 
-	enum BlockType { select, from, where, orderBy, groupBy, undefined }
-
-	static class RuntimeStorage {
-		BlockType currentSqlBlock = BlockType.undefined;
-		List<Expr> select, where, orderBy, groupBy;
-
-		public RuntimeStorage(Query query) {
-			currentSqlBlock = BlockType.undefined;
-
-			select = new ArrayList<>();
-			select.addAll(query.selectExprs);
-			if (query.selectDefaultColumn)
-				select.add(0, Entity.ID);
-
-			where = new ArrayList<>();
-			where.addAll(query.whereExprs);
-
-			orderBy = new ArrayList<>();
-			orderBy.addAll(query.orderByExprs);
-
-			groupBy = new ArrayList<>();
-			groupBy.addAll(query.groupByExprs);
-		}
-	}
+	/******************************************
+	 * ENUM for SQL BLOCK TYPE
+	 ******************************************/
+	public static enum BlockType { select, from, where, orderBy, groupBy, undefined }
 }

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 
+import lombok.Getter;
 import tpv.core.annotation.Table;
 import tpv.core.table.Entity;
 
@@ -41,13 +42,13 @@ public class Entities {
 	/******************************************
 	 * PUBLIC METHODS
 	 ******************************************/
-	public TableInformation tableInformation(Class<? extends Entity> entityClass) { return MAP_ENTITIES.getOrDefault(entityClass, null); }
+	public static TableInformation tblInfo(Class<? extends Entity> entityClass) { return MAP_ENTITIES.getOrDefault(entityClass, null); }
 
 	/******************************************
 	 * CLASS DEFINITION
 	 ******************************************/
 	public static class TableInformation {
-		final String name, prefix;
+		@Getter final String name, prefix;
 		final Class<? extends Entity> entity;
 		public TableInformation(Class<? extends Entity> entity) {
 			Table annotation = entity.getAnnotation(Table.class);
