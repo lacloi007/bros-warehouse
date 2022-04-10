@@ -1,4 +1,4 @@
-package tpv.core.define;
+package tpv.core.table;
 
 import java.time.LocalDate;
 
@@ -22,7 +22,7 @@ public class Entity {
 	 ********************************/
 	final static String COLUMN___CREATED_BY = "CREATED_BY";
 	public final static ColExpr CREATED_BY = new ColExpr(COLUMN___CREATED_BY);
-	@Column(name = COLUMN___CREATED_BY, type = ColumnType.REFERENCE, referTo = UserEntity.class)
+	@Column(name = COLUMN___CREATED_BY, type = ColumnType.REFERENCE, referTo = User.class)
 	@Getter @Setter private String createdBy;
 
 	/********************************
@@ -38,7 +38,7 @@ public class Entity {
 	 ********************************/
 	final static String COLUMN___UPDATED_BY = "UPDATED_BY";
 	public final static ColExpr UPDATED_BY = new ColExpr(COLUMN___UPDATED_BY);
-	@Column(name = COLUMN___UPDATED_BY, type = ColumnType.REFERENCE, referTo = UserEntity.class)
+	@Column(name = COLUMN___UPDATED_BY, type = ColumnType.REFERENCE, referTo = User.class)
 	@Getter @Setter private String updatedBy;
 
 	/********************************

@@ -1,14 +1,12 @@
 package tpv.core.query;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.test.context.ContextConfiguration;
+import org.junit.jupiter.api.Test;
 
-import tpv.bros.common.configuration.CommonConfiguration;
-import tpv.core.configuration.DatabaseConfiguration;
+import tpv.core.table.User;
 
-@AutoConfigureTestDatabase(replace = Replace.NONE)
-@ContextConfiguration(classes = { DatabaseConfiguration.class, CommonConfiguration.class })
-public class QueryTest {
-
+public class QueryTest extends DefaultQueryTest {
+	@Test
+	protected void test() {
+		Query query = Query.select(User.FIRST_NAME).from(User.class);
+	}
 }

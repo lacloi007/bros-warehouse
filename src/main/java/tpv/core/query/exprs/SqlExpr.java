@@ -8,7 +8,7 @@ public class SqlExpr extends Expr {
 	String sql;
 
 	@Override
-	public String build(Query query) {
+	public String gen(Query query) {
 		return sql;
 	}
 }

@@ -11,7 +11,7 @@ public class ColExpr extends Expr {
 	}
 
 	@Override
-	public String build(Query query) {
+	public String gen(Query query) {
 		return null;
 	}
 }
