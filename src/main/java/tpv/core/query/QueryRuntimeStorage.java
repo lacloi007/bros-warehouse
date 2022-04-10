@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import lombok.Getter;
 import tpv.bros.common.table.Entity;
 import tpv.core.Entities;
+import tpv.core.Entities.TableInformation;
 import tpv.core.query.Query.BlockType;
 import tpv.core.query.exprs.Expr;
 
@@ -19,6 +22,7 @@ public class QueryRuntimeStorage {
 	@Getter List<Consumer<PreparedStatement>> preparedStatementConsumers;
 	@Getter Set<String> columnNames;
 	@Getter String tableName;
+	TableInformation tableInformation;
 
 	public QueryRuntimeStorage(Query query) {
 		currentSqlBlock = BlockType.undefined;
@@ -28,7 +32,8 @@ public class QueryRuntimeStorage {
 		if (query.selectDefaultColumn)
 			select.add(0, Entity.ID);
 
-		tableName = Entities.tblInfo(query.fromEntity).getName();
+		tableInformation = Entities.tblInfo(query.fromEntity);
+		tableName = tableInformation.getName();
 
 		where = new ArrayList<>();
 		where.addAll(query.whereExprs);

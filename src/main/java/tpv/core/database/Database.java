@@ -61,7 +61,7 @@ public class Database {
 		}
 	}
 
-	private static Connection connection() throws SQLException {
+	public static Connection connection() throws SQLException {
 		return template.getDataSource().getConnection();
 	}
 }

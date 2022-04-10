@@ -7,9 +7,12 @@ import java.util.Set;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.jdbc.core.RowMapper;
 
 import lombok.Getter;
+import lombok.Setter;
 import tpv.bros.common.table.Entity;
+import tpv.core.annotation.Mapper;
 import tpv.core.annotation.Table;
 
 @SuppressWarnings("unchecked")
@@ -22,6 +25,7 @@ public class Entities {
 		Set<BeanDefinition> entityClasses = new LinkedHashSet<>(); {
 			entityClasses.addAll(provider.findCandidateComponents(Entity.class.getPackageName()));
 			entityClasses.addAll(provider.findCandidateComponents(TABLE_BASE_PACKAGE));
+			entityClasses.addAll(provider.findCandidateComponents("tpv.bros.common.mapper"));
 		}
 
 		for (BeanDefinition bean: entityClasses) {
@@ -32,6 +36,13 @@ public class Entities {
 					TableInformation information = new TableInformation(entity);
 					MAP_ENTITIES.put(entity, information);
 					MAP_PREFIXS.put(information.prefix, entity);
+				}
+
+				if (nativeClass.isAnnotationPresent(Mapper.class)) {
+					Mapper mapper = nativeClass.getAnnotation(Mapper.class);
+					TableInformation information = MAP_ENTITIES.getOrDefault(mapper.value(), null);
+					if (information != null)
+						information.setRowMapper((Class<? extends RowMapper<?>>) nativeClass);
 				}
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException(e);
@@ -50,6 +61,7 @@ public class Entities {
 	public static class TableInformation {
 		@Getter final String name, prefix;
 		final Class<? extends Entity> entity;
+		@Setter Class<? extends RowMapper<?>> rowMapper;
 		public TableInformation(Class<? extends Entity> entity) {
 			Table annotation = entity.getAnnotation(Table.class);
 			this.entity = entity;
