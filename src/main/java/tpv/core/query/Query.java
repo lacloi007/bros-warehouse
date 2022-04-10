@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import tpv.bros.common.table.Entity;
+import tpv.core.database.Database;
 import tpv.core.query.exprs.Expr;
-import tpv.core.table.Entity;
 
 public class Query {
 	static final String LineSeparator = System.lineSeparator();
@@ -45,6 +46,13 @@ public class Query {
 	 * PUBLIC SUPPORTER METHODS for OUTPUT
 	 ******************************************/
 	public QueryRuntimeStorage runtime() { return this.qrs; }
+	public <T extends Entity> List<T> queryList() {
+		String sql = this.build();
+		if (qrs.getPreparedStatementConsumers().isEmpty()) {
+			return Database.query2List(sql, null);
+		}
+		return null;
+	}
 
 	/******************************************
 	 * PRIVATE METHODS FOR SUPPORT

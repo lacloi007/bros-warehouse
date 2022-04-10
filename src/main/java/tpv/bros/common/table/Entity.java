@@ -1,4 +1,4 @@
-package tpv.core.table;
+package tpv.bros.common.table;
 
 import java.time.LocalDate;
 

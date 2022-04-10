@@ -1,4 +1,4 @@
-package tpv.core.table;
+package tpv.bros.common.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import tpv.bros.common.table.User;
 import tpv.core.utils.MapperUtilities;
 
 public class UserMapper implements RowMapper<User> {

@@ -9,8 +9,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 
 import lombok.Getter;
+import tpv.bros.common.table.Entity;
 import tpv.core.annotation.Table;
-import tpv.core.table.Entity;
 
 @SuppressWarnings("unchecked")
 public class Entities {

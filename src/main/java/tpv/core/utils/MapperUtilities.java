@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import tpv.core.table.Entity;
+import tpv.bros.common.table.Entity;
 
 public class MapperUtilities {
 	public static <T extends Entity> void entity(T intance, Set<String> setColumnNames, ResultSet rs)

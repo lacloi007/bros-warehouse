@@ -1,4 +1,4 @@
-package tpv.core.table;
+package tpv.bros.common.table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

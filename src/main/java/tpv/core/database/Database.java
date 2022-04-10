@@ -8,9 +8,10 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import lombok.Setter;
-import tpv.core.table.Entity;
+import tpv.bros.common.table.Entity;
 
 public class Database {
 	@Setter
@@ -25,8 +26,8 @@ public class Database {
 	public static <T extends Entity> void delete(T record) {
 	}
 
-	public static <T extends Entity> List<T> query2List(String sql, List<String> params) {
-		return List.of();
+	public static <T extends Entity> List<T> query2List(String sql, RowMapper<T> rowMapper) {
+		return template.query(sql, rowMapper);
 	}
 
 	public static <T extends Entity> Stream<T> query2Stream(String sql, Map<String, Object> parameters) {

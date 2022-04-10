@@ -3,7 +3,6 @@ package tpv.bros.common.table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import tpv.core.annotation.Table;
-import tpv.core.table.Entity;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
