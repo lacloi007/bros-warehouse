@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		SimpleUrlAuthenticationFailureHandler handler = new SimpleUrlAuthenticationFailureHandler(HomeController.PATH_HOME);
 		return handler;
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		String[] anonymous = { HomeController.PATH_HOME };
