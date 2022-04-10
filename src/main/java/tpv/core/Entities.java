@@ -1,4 +1,4 @@
-package tpv.bros.common;
+package tpv.core;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -38,9 +38,16 @@ public class Entities {
 		}
 	}
 
+	/******************************************
+	 * PUBLIC METHODS
+	 ******************************************/
+	public TableInformation tableInformation(Class<? extends Entity> entityClass) { return MAP_ENTITIES.getOrDefault(entityClass, null); }
+
+	/******************************************
+	 * CLASS DEFINITION
+	 ******************************************/
 	public static class TableInformation {
-		final String name;
-		final String prefix;
+		final String name, prefix;
 		final Class<? extends Entity> entity;
 		public TableInformation(Class<? extends Entity> entity) {
 			Table annotation = entity.getAnnotation(Table.class);
