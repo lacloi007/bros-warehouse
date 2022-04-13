@@ -1,8 +1,10 @@
 package tpv.core.query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 import tpv.bros.common.table.Entity;
 import tpv.core.database.Database;
@@ -14,30 +16,28 @@ public class Query {
 	/*********************
 	 * MAIN VARIABLE
 	 *********************/
-	List<Expr> selectExprs, whereExprs, orderByExprs, groupByExprs;
+	Map<BlockType, List<Expr>> exprs;
 	Class<? extends Entity> fromEntity;
 	Long limit, offset;
 
+	// RUNTIME VARIABLE
 	QueryRuntimeStorage qrs;
 
 	/******************************************
 	 * CONSTRUCTOR
 	 ******************************************/
 	private Query() {
-		selectExprs = new ArrayList<>();
-		whereExprs = new ArrayList<>();
-		orderByExprs = new ArrayList<>();
-		groupByExprs = new ArrayList<>();
+		exprs = new HashMap<>();
 		selectDefaultColumn = true;
 	}
 
 	/******************************************
 	 * PUBLIC SUPPORTER METHODS
 	 ******************************************/
-	public static Query select(Expr... exprs) { Query instance = new Query(); return instance.setter(instance.selectExprs, exprs); }
-	public Query where(Expr... exprs) { return setter(whereExprs, exprs); }
-	public Query orderBy(Expr... exprs) { return setter(orderByExprs, exprs); }
-	public Query groupBy(Expr... exprs) { return setter(groupByExprs, exprs); }
+	public static Query select(Expr... exprs) { Query instance = new Query(); return instance.setter(BlockType.select, exprs); }
+	public Query where(Expr... exprs) { return setter(BlockType.where, exprs); }
+	public Query orderBy(Expr... exprs) { return setter(BlockType.orderBy, exprs); }
+	public Query groupBy(Expr... exprs) { return setter(BlockType.groupBy, exprs); }
 	public Query limit(Long limit) { return setter(this.limit, limit); }
 	public Query offset(Long offset) { return setter(this.offset, offset); }
 	public Query from(Class<? extends Entity> entityClass) { return setter(fromEntity, entityClass); }
@@ -57,7 +57,13 @@ public class Query {
 	/******************************************
 	 * PRIVATE METHODS FOR SUPPORT
 	 ******************************************/
-	private Query setter(List<Expr> list, Expr... exprs) { if (exprs != null && exprs.length > 0) list.addAll(List.of(exprs)); return this; }
+	private Query setter(BlockType type, Expr... exprs) { 
+		if (exprs != null && exprs.length > 0) {
+			this.exprs.putIfAbsent(type, new ArrayList<>());
+			this.exprs.get(type).addAll(List.of(exprs));
+		}
+		return this;
+	}
 	private Query setter(Object src, Object dst) { src = dst; return this; }
 
 	/******************************************
@@ -137,15 +143,8 @@ public class Query {
 	 * @param type
 	 * @return
 	 */
-	private List<Expr> expression(BlockType type) {
-		switch (type) {
-		case select: return qrs.select;
-		case where: return qrs.where;
-		case orderBy: return qrs.orderBy;
-		case groupBy: return qrs.groupBy;
-		default:
-			return null;
-		}
+	List<Expr> expression(BlockType type) {
+		return this.exprs.getOrDefault(type, new ArrayList<>());
 	}
 
 	/******************************************

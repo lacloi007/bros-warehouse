@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import org.springframework.jdbc.core.RowMapper;
-
 import lombok.Getter;
 import tpv.bros.common.table.Entity;
 import tpv.core.Entities;
@@ -28,7 +26,7 @@ public class QueryRuntimeStorage {
 		currentSqlBlock = BlockType.undefined;
 
 		select = new ArrayList<>();
-		select.addAll(query.selectExprs);
+		select.addAll(query.expression(BlockType.select));
 		if (query.selectDefaultColumn)
 			select.add(0, Entity.ID);
 
@@ -36,13 +34,13 @@ public class QueryRuntimeStorage {
 		tableName = tableInformation.getName();
 
 		where = new ArrayList<>();
-		where.addAll(query.whereExprs);
+		where.addAll(query.expression(BlockType.where));
 
 		orderBy = new ArrayList<>();
-		orderBy.addAll(query.orderByExprs);
+		orderBy.addAll(query.expression(BlockType.orderBy));
 
 		groupBy = new ArrayList<>();
-		groupBy.addAll(query.groupByExprs);
+		groupBy.addAll(query.expression(BlockType.groupBy));
 
 		columnNames = new LinkedHashSet<>();
 		preparedStatementConsumers = new ArrayList<>();
