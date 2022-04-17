@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class UserInformationService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		try {
 			String code = Role.valueOf(username).name();
 			return User.withUsername(code).password(code).roles(code)
@@ -18,5 +17,5 @@ public class UserInformationService implements UserDetailsService {
 		}
 	}
 
-	enum Role { customer, administrator, member }
+	enum Role { customer, admin, member }
 }
