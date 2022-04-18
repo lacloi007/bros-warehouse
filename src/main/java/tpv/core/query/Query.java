@@ -111,11 +111,7 @@ public class Query {
 	/******************************************
 	 * PRIVATE METHOD FOR BUILDING
 	 ******************************************/
-
-	/**
-	 * @param type
-	 * @return
-	 */
+	private String createSqlBlockFrom() { return String.format("FROM %s", qrs.tableName); }
 	private String createSqlBlock(BlockType type) {
 		qrs.currentSqlBlock = type;
 		List<Expr> exprs = expression(type);
@@ -142,20 +138,13 @@ public class Query {
 		}
 	}
 
-	/**
-	 * @return
-	 */
-	private String createSqlBlockFrom() {
-		return String.format("FROM %s", qrs.tableName);
-	}
+	
 
 	/**
 	 * @param type
 	 * @return
 	 */
-	List<Expr> expression(BlockType type) {
-		return this.exprs.getOrDefault(type, new ArrayList<>());
-	}
+	List<Expr> expression(BlockType type) { return this.exprs.getOrDefault(type, new ArrayList<>()); }
 
 	/******************************************
 	 * ENUM for SQL BLOCK TYPE
