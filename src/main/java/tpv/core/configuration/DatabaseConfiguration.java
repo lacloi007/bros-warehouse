@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import tpv.core.Entities;
 import tpv.core.database.Database;
 
 @Configuration
@@ -17,7 +18,7 @@ public class DatabaseConfiguration {
 	/**
 	 * jdbc:h2:localhost:/tool/git-source/bros-warehouse/data/brosWarehouse
 	 * jdbc:h2:tcp://localhost:9092/brosWarehouse
-	 * jdbc:h2:tcp://localhost:9002/~/brosWarehouse
+	 * 
 	 * @return
 	 * @throws SQLException
 	 * @throws IOException
@@ -38,8 +39,7 @@ public class DatabaseConfiguration {
 		);
 	}
 
-	@Autowired
-	private void setJdbcTemplate(JdbcTemplate template) {
+	@Autowired void setJdbcTemplate(JdbcTemplate template) {
 		Database.setTemplate(template);
 	}
 }

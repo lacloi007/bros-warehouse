@@ -7,7 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 	"tpv.core.configuration"
-	, "tpv.common"
+	, "tpv.bros.common.configuration"
+	, "tpv.bros.common.service"
+	, "tpv.bros.web.configuration"
+	, "tpv.bros.web.controller"
 })
 public class WebApplication {
 	public static void main(String[] args) {

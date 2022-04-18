@@ -20,7 +20,7 @@ public class QueryRuntimeStorage {
 	@Getter List<Consumer<PreparedStatement>> preparedStatementConsumers;
 	@Getter Set<String> columnNames;
 	@Getter String tableName;
-	TableInformation tableInformation;
+	TableInformation<?> tableInformation;
 
 	public QueryRuntimeStorage(Query query) {
 		currentSqlBlock = BlockType.undefined;

@@ -5,4 +5,8 @@ public class QueryException extends RuntimeException {
 	public QueryException() {
 		super();
 	}
+	
+	public QueryException(Throwable throwable) {
+		super(throwable);
+	}
 }

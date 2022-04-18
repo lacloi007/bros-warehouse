@@ -11,4 +11,6 @@ public enum ColumnType {
 	, DATE      // DATE
 	, DATE_TIME // DATE_TIME
 	, UNDEFINED
+
+	, SET       // SET (split by "|")
 }

@@ -1,10 +1,13 @@
 package tpv.core.query;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.jdbc.core.RowMapper;
 
 import tpv.bros.common.table.Entity;
 import tpv.core.database.Database;
@@ -40,17 +43,24 @@ public class Query {
 	public Query groupBy(Expr... exprs) { return setter(BlockType.groupBy, exprs); }
 	public Query limit(Long limit) { return setter(this.limit, limit); }
 	public Query offset(Long offset) { return setter(this.offset, offset); }
-	public Query from(Class<? extends Entity> entityClass) { return setter(fromEntity, entityClass); }
+	public Query from(Class<? extends Entity> entityClass) { this.fromEntity = entityClass; return this; }
 
 	/******************************************
 	 * PUBLIC SUPPORTER METHODS for OUTPUT
 	 ******************************************/
 	public QueryRuntimeStorage runtime() { return this.qrs; }
+	@SuppressWarnings("unchecked")
 	public <T extends Entity> List<T> queryList() {
 		String sql = this.build();
-		if (qrs.getPreparedStatementConsumers().isEmpty()) {
-			return Database.query2List(sql, null);
+		RowMapper<T> mapper;
+		try {
+			mapper = (RowMapper<T>) qrs.tableInformation.getMapper();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			throw new QueryException(e);
 		}
+
+		if (qrs.getPreparedStatementConsumers().isEmpty())
+			return Database.query2List(sql, mapper);
 		return null;
 	}
 
