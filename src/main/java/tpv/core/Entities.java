@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -33,7 +34,7 @@ public class Entities {
 
 		// prepare bean definitions
 		Set<BeanDefinition> entityClasses = new LinkedHashSet<>();
-		Set.of(Entity.class.getPackageName(), EntityMapper.class.getPackageName())
+		List.of(Entity.class.getPackageName(), EntityMapper.class.getPackageName())
 			.forEach(i -> entityClasses.addAll(provider.findCandidateComponents(i)));
 
 		// process each of bean definition

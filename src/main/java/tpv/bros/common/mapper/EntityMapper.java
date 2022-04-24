@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import tpv.bros.common.table.Entity;
 
 public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
-	protected static final String SPLITTER = "|";
+	protected static final String SPLITTER = "[|]";
 	public final static String COLUMN___ID           = "ID";
 	public final static String COLUMN___CREATED_BY   = "CREATED_BY";
 	public final static String COLUMN___CREATED_DATE = "CREATED_DATE";

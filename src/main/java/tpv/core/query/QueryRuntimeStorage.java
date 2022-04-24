@@ -2,9 +2,7 @@ package tpv.core.query;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 import lombok.Getter;
@@ -18,7 +16,7 @@ public class QueryRuntimeStorage {
 	@Getter BlockType currentSqlBlock = BlockType.undefined;
 	List<Expr> select, where, orderBy, groupBy;
 	@Getter List<Consumer<PreparedStatement>> preparedStatementConsumers;
-	@Getter Set<String> columnNames;
+	@Getter QueryPrepareStatement parameters = new QueryPrepareStatement();
 	@Getter String tableName;
 	TableInfo tableInformation;
 
@@ -42,7 +40,6 @@ public class QueryRuntimeStorage {
 		groupBy = new ArrayList<>();
 		groupBy.addAll(query.expression(BlockType.groupBy));
 
-		columnNames = new LinkedHashSet<>();
 		preparedStatementConsumers = new ArrayList<>();
 	}
 }

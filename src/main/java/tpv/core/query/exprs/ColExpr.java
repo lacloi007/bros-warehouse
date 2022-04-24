@@ -11,12 +11,6 @@ public class ColExpr extends Expr {
 	@Override
 	public String gen(Query query) {
 		QueryRuntimeStorage runtime = query.runtime();
-		switch (runtime.getCurrentSqlBlock()) {
-		case select:
-			runtime.getColumnNames().add(column);
-			return String.format("%s.%s", runtime.getTableName(), column);
-		default:
-			return "";
-		}
+		return String.format("%s.%s", runtime.getTableName(), column);
 	}
 }

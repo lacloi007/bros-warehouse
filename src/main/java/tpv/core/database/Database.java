@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import lombok.Setter;
 import tpv.bros.common.table.Entity;
+import tpv.core.query.QueryPrepareStatement;
 
 public class Database {
 	@Setter
@@ -28,6 +29,10 @@ public class Database {
 
 	public static <T extends Entity> List<T> query2List(String sql, RowMapper<T> rowMapper) {
 		return template.query(sql, rowMapper);
+	}
+
+	public static <T extends Entity> List<T> query2List(String sql, QueryPrepareStatement ps, RowMapper<T> rowMapper) {
+		return template.query(sql, ps, rowMapper);
 	}
 
 	public static <T extends Entity> Stream<T> query2Stream(String sql, Map<String, Object> parameters) {

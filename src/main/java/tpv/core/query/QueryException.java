@@ -6,6 +6,10 @@ public class QueryException extends RuntimeException {
 		super();
 	}
 	
+	public QueryException(String message) {
+		super(message);
+	}
+	
 	public QueryException(Throwable throwable) {
 		super(throwable);
 	}

@@ -6,17 +6,9 @@ import tpv.core.query.QueryRuntimeStorage;
 
 @AllArgsConstructor
 public class SelectAllExpr extends Expr {
-	String column;
-
 	@Override
 	public String gen(Query query) {
 		QueryRuntimeStorage runtime = query.runtime();
-		switch (runtime.getCurrentSqlBlock()) {
-		case select:
-			runtime.getColumnNames().add(column);
-			return String.format("%s.%s", runtime.getTableName(), column);
-		default:
-			return "";
-		}
+		return String.format("%s.*", runtime.getTableName());
 	}
 }

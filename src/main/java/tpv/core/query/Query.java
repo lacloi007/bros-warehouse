@@ -49,6 +49,11 @@ public class Query {
 	 * PUBLIC SUPPORTER METHODS for OUTPUT
 	 ******************************************/
 	public QueryRuntimeStorage runtime() { return this.qrs; }
+
+	/**
+	 * @param <T>
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Entity> List<T> queryList() {
 		String sql = this.build();
@@ -59,9 +64,20 @@ public class Query {
 			throw new QueryException(e);
 		}
 
-		if (qrs.getPreparedStatementConsumers().isEmpty())
+		if (qrs.getParameters().isEmpty())
 			return Database.query2List(sql, mapper);
-		return null;
+		return Database.query2List(sql, qrs.getParameters(), mapper);
+	}
+
+	/**
+	 * @param <T>
+	 * @return
+	 */
+	public <T extends Entity> T querySingle() {
+		List<T> list = queryList();
+		if (list.isEmpty())
+			return null;
+		return list.get(0);
 	}
 
 	/******************************************
@@ -144,7 +160,15 @@ public class Query {
 	 * @param type
 	 * @return
 	 */
-	List<Expr> expression(BlockType type) { return this.exprs.getOrDefault(type, new ArrayList<>()); }
+	List<Expr> expression(BlockType type) {
+		if (type == BlockType.select && this.selectDefaultColumn) {
+			List<Expr> selects = this.exprs.getOrDefault(type, new ArrayList<>());
+			selects.add(0, Entity.ID);
+			return selects;
+		}
+
+		return this.exprs.getOrDefault(type, new ArrayList<>());
+	}
 
 	/******************************************
 	 * ENUM for SQL BLOCK TYPE

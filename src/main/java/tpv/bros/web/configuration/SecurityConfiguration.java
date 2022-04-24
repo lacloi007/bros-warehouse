@@ -9,11 +9,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.thymeleaf.util.StringUtils;
 
 import tpv.bros.common.security.SystemAuthenticationProvider;
 import tpv.bros.common.service.UserInformationService;
@@ -39,9 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		SystemAuthenticationProvider system = new SystemAuthenticationProvider();
-		system.setUserDetailsService(userDetailsService);
-		auth.authenticationProvider(system);
+		SystemAuthenticationProvider provider = new SystemAuthenticationProvider();
+		provider.setHideUserNotFoundExceptions(true);
+		provider.setUserDetailsService(userDetailsService);
+		auth.authenticationProvider(provider);
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		// http.csrf().disable();
 
 		// Các trang không yêu cầu login
 		http.authorizeRequests()
@@ -67,22 +66,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 
 			.and().formLogin()
-				.loginPage("/login")//
+				// .loginPage("/login")//
+				.defaultSuccessUrl("/home")
 				.successForwardUrl("/home")
-				.failureUrl("/home")
-				.usernameParameter("username")//
-				.passwordParameter("password")
+				// .failureUrl("/home")
+				// .usernameParameter("username")//
+				// .passwordParameter("password")
 
 			.and().logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/home")
+				//.logoutUrl("/logout")
+				.logoutSuccessUrl("/").permitAll()
 
-			.and().csrf().disable().exceptionHandling().accessDeniedPage("/home")
+			//.and().csrf().disable().exceptionHandling().accessDeniedPage("/home")
 
 			// Cấu hình Remember Me.
-			.and().rememberMe()
-				.tokenRepository(this.persistentTokenRepository())
-				.tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+			//.and().rememberMe()
+			//	.tokenRepository(this.persistentTokenRepository())
+			//	.tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
 		;
 
 		// Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
@@ -106,7 +106,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return memory;
 	}
 
-	PasswordEncoder passwordEncoder() {
+	/**
+	@Bean
+	public PasswordEncoder passwordEncoder() {
 		return new PasswordEncoder() {
 			@Override
 			public boolean matches(CharSequence rawPassword, String encodedPassword) {
@@ -117,9 +119,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			public String encode(CharSequence rawPassword) {
 				return String.valueOf(rawPassword);
 			}
-
 		};
 	}
+	*/
 
 	/**
 	public static class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
