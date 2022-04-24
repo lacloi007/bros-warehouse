@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import lombok.Getter;
 import tpv.bros.common.table.Entity;
 import tpv.core.Entities;
-import tpv.core.Entities.TableInformation;
+import tpv.core.Entities.TableInfo;
 import tpv.core.query.Query.BlockType;
 import tpv.core.query.exprs.Expr;
 
@@ -20,7 +20,7 @@ public class QueryRuntimeStorage {
 	@Getter List<Consumer<PreparedStatement>> preparedStatementConsumers;
 	@Getter Set<String> columnNames;
 	@Getter String tableName;
-	TableInformation<?> tableInformation;
+	TableInfo tableInformation;
 
 	public QueryRuntimeStorage(Query query) {
 		currentSqlBlock = BlockType.undefined;
