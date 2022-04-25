@@ -1,5 +1,7 @@
 package tpv.bros.web.controller;
 
-public class CommonController {
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class CommonController {
 }

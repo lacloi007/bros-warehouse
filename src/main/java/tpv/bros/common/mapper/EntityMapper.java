@@ -3,12 +3,21 @@ package tpv.bros.common.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.PropertyAccessor;
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import tpv.bros.common.table.Entity;
+import tpv.bros.common.table.User;
+import tpv.core.Entities;
+import tpv.core.Entities.FieldInfo;
+import tpv.core.Entities.TableInfo;
+import tpv.core.define.enm.ColumnType;
 
 public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
 	protected static final String SPLITTER = "[|]";
@@ -17,6 +26,8 @@ public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
 	public final static String COLUMN___CREATED_DATE = "CREATED_DATE";
 	public final static String COLUMN___UPDATED_BY   = "UPDATED_BY";
 	public final static String COLUMN___UPDATED_DATE = "UPDATED_DATE";
+
+	public abstract T newInstance();
 
 	/**
 	 * @param instance
@@ -40,7 +51,9 @@ public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
 	@Override
 	public T mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Set<String> columns = prepareColumns(rs);
-		return mapping(rs, columns, rowNum);
+		T instance = newInstance();
+		mapping(instance, rs, columns, rowNum);
+		return instance;
 	}
 
 	/**
@@ -50,7 +63,39 @@ public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
 	 * @return
 	 * @throws SQLException
 	 */
-	public abstract T mapping(ResultSet rs, Set<String> columnNames, int rowNum) throws SQLException;
+	@SuppressWarnings("unchecked")
+	void mapping(T instance, ResultSet rs, Set<String> columnNames, int rowNum) throws SQLException {
+		PropertyAccessor accessor = PropertyAccessorFactory.forBeanPropertyAccess(instance);
+
+		baseMapper(instance, rs, columnNames);
+		TableInfo table = Entities.tblInfo(User.class);
+		for (FieldInfo field: table.databaseFields.values()) {
+			ColumnType type = field.getColumn().type();
+			String databaseField = field.getDatabaseField();
+			String declaredField = field.getDeclaredField();
+			if (columnNames.contains(field.getDatabaseField())) {
+				if (type == ColumnType.DATE || type == ColumnType.DATE_TIME) {
+					LocalDate localDate = rs.getDate(databaseField).toLocalDate();
+					accessor.setPropertyValue(declaredField, localDate);
+				}
+
+				// other case
+				else {
+					String string = rs.getString(databaseField);
+					if (string != null) {
+						if (type == ColumnType.SET) {
+							Set<String> current = (Set<String>) accessor.getPropertyValue(declaredField);
+							current.addAll(List.of(string.split(SPLITTER)));
+						}
+
+						else {
+							accessor.setPropertyValue(declaredField, string);
+						}
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * @param rs
