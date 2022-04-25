@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>Admin dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <style type="text/css">
+  .fa:hover { color:black !important; }
+  </style>
+</head>
+<body>
+  <!-- TOP MENU -->
+  <div class="w3-row">
+    <div class="w3-green w3-container w3-quarter">
+      <h2><a href="/"><i class="fa fa-home"></i></a></h2>
+    </div>
+    <div class="w3-green w3-container w3-threequarter w3-right-align">
+      <h2>
+        <a href="/logout"><i class="fa fa-sign-out"></i></a>
+      </h2>
+    </div>
+  </div>
+
+  <!-- LEFT SIDE -->
+  <div class="w3-sidebar w3-bar-block w3-border w3-card" style="width:25%">
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom">Dashboard</a>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom">Nhận hàng</a>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom">Lưu kho hàng hóa</a>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom">Đơn hàng</a>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom">Đóng gói</a>
+    <a href="#" class="w3-bar-item w3-button ">Thông tin khách hàng</a>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div style="margin-left:25%" ng-app="brosApplication" ng-controller="adminDashboard">
+    <div ng-include="'/html/adminDashboard.html'"></div>
+  </div>
+
+  <script type="text/javascript">
+  var app = angular.module("brosApplication", []);
+  app.controller("adminDashboard", function($scope) {
+    $scope.names = [{ Name: 'N1', Country: 'C1'}, { Name: 'N2', Country: 'C2'}]
+  });
+  </script>
+</body>
+</html>

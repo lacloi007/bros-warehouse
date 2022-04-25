@@ -25,7 +25,6 @@ public class ComparableExpr extends Expr {
 
 	@Override
 	public String gen(Query query) {
-		// TODO Auto-generated method stub
 		List<String> list = new ArrayList<>();
 		String sqlColumn = column.gen(query);
 		if (value == null) {
@@ -41,7 +40,7 @@ public class ComparableExpr extends Expr {
 			query.runtime().getParameters().add(value);
 		}
 
-		return null;
+		return String.join(" ", list);
 	}
 
 	@Getter @AllArgsConstructor protected enum CompareType {

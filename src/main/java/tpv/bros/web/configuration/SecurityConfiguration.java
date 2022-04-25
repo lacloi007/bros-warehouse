@@ -66,16 +66,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 
 			.and().formLogin()
-				// .loginPage("/login")//
-				.defaultSuccessUrl("/home")
-				.successForwardUrl("/home")
-				// .failureUrl("/home")
+				// .loginPage("/login")
+				.defaultSuccessUrl("/loginSuccess")
+				.failureUrl("/home")
 				// .usernameParameter("username")//
 				// .passwordParameter("password")
 
 			.and().logout()
-				//.logoutUrl("/logout")
-				.logoutSuccessUrl("/").permitAll()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/home").permitAll()
 
 			//.and().csrf().disable().exceptionHandling().accessDeniedPage("/home")
 
