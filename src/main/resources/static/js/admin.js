@@ -7,7 +7,7 @@ app.config(function($routeProvider) {
     .when("/order",     { templateUrl: "/html/adminOrder.html"    , activetab: "m4" })
     .when("/pack",      { templateUrl: "/html/adminPack.html"     , activetab: "m5" })
     .when("/customer",  { templateUrl: "/html/adminCustomer.html" , activetab: "m6" })
-    .otherwise(         { redirectTo : '/home' });
+    .otherwise(         { redirectTo : '/dashboard' });
 });
 
 app.controller("adminDashboard", function($scope) {
