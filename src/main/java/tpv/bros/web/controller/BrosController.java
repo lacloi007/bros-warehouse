@@ -14,27 +14,22 @@ public class BrosController {
 	final static String DEFAULT = "redirect:" + PATH_HOME;
 	final static Map<String, String> MAPPER = Map.of(
 			  "admin" , "redirect:/admin"    // for administrator
-			, "user"  , "redirect:/home"     // for normal user
+			, "user"  , "redirect:/user"     // for normal user
 			, "staff" , "redirect:/staff"    // for staff
 	);
 
-	@GetMapping(path = { "/", PATH_HOME })
-	public String home(Model model) {
-		return "pages/home";
-	}
-
-	@GetMapping(path = "/admin")
-	public String admin(Model model) {
-		return "pages/admin/home";
-	}
-
-	@GetMapping(path = "/staff")
-	public String staff(Model model) {
-		return "pages/staff/home";
-	}
+	@GetMapping(path = PATH_HOME) protected String GET__P001(Model model) { return "pages/P001_home"; }
+	@GetMapping(path = "/register") protected String GET__P002(Model model) { return "pages/P002_register"; }
+	@GetMapping(path = "/login") protected String GET__P003(Model model) { return "pages/P003_login"; }
+	@GetMapping(path = "/reset-password") protected String GET__P004(Model model) { return "pages/P004_reset-password"; }
+	@GetMapping(path = "/confirm-password") protected String GET__P005(Model model) { return "pages/P005_confirm-password"; }
+	@GetMapping(path = "/price-list") protected String GET__P006(Model model) { return "pages/P006_price-list"; }
+	@GetMapping(path = "/admin") protected String GET__A001(Model model) { return "pages/QA001_home"; }
+	@GetMapping(path = "/staff") protected String GET__S001(Model model) { return "pages/QS001_home"; }
+	@GetMapping(path = "/user") protected String GET__U001(Model model) { return "pages/QU001_home"; }
 
 	@GetMapping(path = "/loginSuccess")
-	public String login(Model model) {
+	protected String GET__P003Redirect(Model model) {
 		String userRole = CurrentUserInfo.getUserRole();
 		return MAPPER.getOrDefault(userRole, DEFAULT);
 	}
