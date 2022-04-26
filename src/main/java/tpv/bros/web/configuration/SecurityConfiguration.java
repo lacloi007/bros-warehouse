@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 
 			.and().formLogin()
-				.loginPage(Const.PATH_LOGIN)
+				.loginPage(Const.PATH_P003_LOGIN)
 				.defaultSuccessUrl(Const.PATH_DEFAULT_SUCCESS_URL)
 				.failureUrl(Const.PATH_FAILURE_URL)
 				// .usernameParameter("username")
