@@ -1,15 +1,36 @@
 package tpv.bros.common.table;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
+import tpv.bros.common.dto.EntityErrors;
 import tpv.bros.common.mapper.EntityMapper;
 import tpv.core.annotation.Column;
 import tpv.core.define.enm.ColumnType;
 import tpv.core.query.exprs.ColExpr;
 
 public class Entity {
+	/********************************
+	 *              ERRORS DEFINITION
+	 ********************************/
+	@JsonAlias
+	public final EntityErrors errors = new EntityErrors();
+
+	/********************************
+	 *                CORE DEFINITION
+	 ********************************/
+	@JsonIgnore
+	public final Set<String> updatedFields = new LinkedHashSet<String>();
+	public void setter(String field) {
+		updatedFields.add(field);
+	}
+
 	/********************************
 	 * Column ID
 	 ********************************/

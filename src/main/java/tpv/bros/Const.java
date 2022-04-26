@@ -1,6 +1,7 @@
 package tpv.bros;
 
 public class Const {
+	public static final String SYSTEM_CODE = "BR";
 	public static final String PATH_P001_HOME = "/home";
 	public static final String PATH_P002_REGISTER = "/register";
 	public static final String PATH_P003_LOGIN = "/login";
@@ -22,5 +23,6 @@ public class Const {
 			, PATH_P005_CONFIRM_PASSWORD  // for confirm password page
 			, PATH_P006_PRICE_LIST
 			, "/all"
+			, "/rs-user*"
 	};
 }

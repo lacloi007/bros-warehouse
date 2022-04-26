@@ -21,4 +21,5 @@ public class CurrentUserInfo {
 	public static String getUserName() { return Optional.ofNullable(loadActor()).map(Actor::getUsername).orElse(DEFAULT_VALUE); }
 	public static String getUserId() { return Optional.ofNullable(loadActor()).map(Actor::getUserId).orElse(DEFAULT_VALUE); }
 	public static String getUserRole() { return Optional.ofNullable(loadActor()).map(Actor::getDefaultRole).orElse(DEFAULT_VALUE); }
+	public static String getCreatedBy() { return Optional.ofNullable(loadActor()).map(Actor::getUserId).orElse("C00B1X20220426X000000000000000"); }
 }

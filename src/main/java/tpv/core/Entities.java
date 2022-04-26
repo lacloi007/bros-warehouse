@@ -67,6 +67,14 @@ public class Entities {
 		return MAP_ENTITIES.getOrDefault(entityClass, null);
 	}
 
+	public static TableInfo tblInfo(String recordId) {
+		String tablePrefix = recordId.substring(0,3);
+		Class<? extends Entity> entityClass = MAP_PREFIXS.getOrDefault(tablePrefix, null);
+		if (entityClass == null)
+			throw new RuntimeException("Record [" + recordId + "] is stranger ");
+		return MAP_ENTITIES.getOrDefault(entityClass, null);
+	}
+
 	/******************************************
 	 * CLASS DEFINITION
 	 ******************************************/

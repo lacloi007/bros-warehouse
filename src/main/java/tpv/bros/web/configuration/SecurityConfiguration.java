@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -85,6 +86,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 			// .and().csrf().disable().exceptionHandling().accessDeniedPage("/401.html")
 			.and().exceptionHandling().accessDeniedPage("/401.html")
+			.and().authorizeHttpRequests()
+				.antMatchers(HttpMethod.POST, "/register").permitAll()
+			.and().csrf().disable()
 
 			// Cấu hình Remember Me.
 			//.and().rememberMe()

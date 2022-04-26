@@ -19,9 +19,9 @@ public class UserInformationService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			User user = Query.select(User.USERNAME, User.PASSWORD, User.ROLES)
+			User user = Query.select(User.EMAIL, User.PASSWORD, User.ROLES)
 					.from(User.class)
-					.where(User.USERNAME.equal(username))
+					.where(User.EMAIL.equal(username))
 					.querySingle();
 			if (user == null)
 				throw new RuntimeException();
@@ -31,7 +31,7 @@ public class UserInformationService implements UserDetailsService {
 					authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
 			}
 
-			Actor actor = new Actor(user.getId(), user.getUsername(), user.getPassword(), user.getRoles(), authorities);
+			Actor actor = new Actor(user.getId(), user.getEmail(), user.getPassword(), user.getRoles(), authorities);
 			return actor;
 		} catch (Exception e) {
 			throw new UsernameNotFoundException("User " + username + " was not found in the database");

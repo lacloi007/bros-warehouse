@@ -20,7 +20,7 @@ import tpv.core.Entities.TableInfo;
 import tpv.core.define.enm.ColumnType;
 
 public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
-	protected static final String SPLITTER = "[|]";
+	public static final String SPLITTER = "[|]";
 	public final static String COLUMN___ID           = "ID";
 	public final static String COLUMN___CREATED_BY   = "CREATED_BY";
 	public final static String COLUMN___CREATED_DATE = "CREATED_DATE";

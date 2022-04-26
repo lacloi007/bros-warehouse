@@ -7,6 +7,10 @@ public class DatabaseException extends RuntimeException {
 		super();
 	}
 
+	public DatabaseException(String error) {
+		super(error);
+	}
+
 	public DatabaseException(Throwable throwable) {
 		super(throwable);
 	}

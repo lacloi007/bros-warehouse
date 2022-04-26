@@ -5,6 +5,7 @@ public enum ColumnType {
 	, REFERENCE // Reference to another entity
 	, MASTER    // Reference to master entity
 	, TEXT       // TEXT
+	, EMAIL       // EMAIL
 	, ENCRYPTION // ENCRYPTION
 	, HTML    // HTML
 	, URL     // URL
