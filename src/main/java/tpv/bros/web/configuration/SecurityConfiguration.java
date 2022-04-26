@@ -66,17 +66,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 
 			.and().formLogin()
-				// .loginPage("/login")
+				.loginPage("/login")
 				.defaultSuccessUrl("/loginSuccess")
 				.failureUrl("/home")
-				// .usernameParameter("username")//
+				// .usernameParameter("username")
 				// .passwordParameter("password")
 
 			.and().logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/home").permitAll()
+				.logoutSuccessUrl("/home")
 
-			//.and().csrf().disable().exceptionHandling().accessDeniedPage("/home")
+			// .and().csrf().disable().exceptionHandling().accessDeniedPage("/401.html")
+			.and().exceptionHandling().accessDeniedPage("/401.html")
 
 			// Cấu hình Remember Me.
 			//.and().rememberMe()
