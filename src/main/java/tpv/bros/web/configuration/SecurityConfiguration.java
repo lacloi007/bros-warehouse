@@ -86,6 +86,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 			// .and().csrf().disable().exceptionHandling().accessDeniedPage("/401.html")
 			.and().exceptionHandling().accessDeniedPage("/401.html")
+
+			// for restful
 			.and().authorizeHttpRequests()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 			.and().csrf().disable()
