@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import tpv.bros.Const;
 import tpv.bros.common.security.SystemAuthenticationProvider;
@@ -70,12 +71,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.loginPage(Const.PATH_P003_LOGIN)
 				.defaultSuccessUrl(Const.PATH_DEFAULT_SUCCESS_URL)
 				.failureUrl(Const.PATH_FAILURE_URL)
+				.permitAll()
 				// .usernameParameter("username")
 				// .passwordParameter("password")
 
 			.and().logout()
-				.logoutUrl(Const.PATH_LOGOUT_URL)
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
 				.logoutSuccessUrl(Const.PATH_LOGOUT_SUCCESS_URL)
+				.clearAuthentication(true)
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
+				.permitAll()
 
 			// .and().csrf().disable().exceptionHandling().accessDeniedPage("/401.html")
 			.and().exceptionHandling().accessDeniedPage("/401.html")

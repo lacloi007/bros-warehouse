@@ -8,7 +8,6 @@ server:
 spring:
   devtools:
     restart:
-      enabled: false
       exclude: static/**,templates/**
   thymeleaf:
     cache: false

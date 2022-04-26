@@ -2,10 +2,78 @@
 <html>
 
 <head>
-<title>Register</title>
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+  .w3-padding-right { padding-right: 4px; }
+  .w3-padding-left { padding-left: 4px; }
+  </style>
 </head>
 
-<body>
-</body>
+<body class="w3-content">
+  <form th:action="@{/register}" method="post">
+    <div class="w3-card-4 w3-light-grey w3-text-blue w3-section">
+      <header class="w3-container">
+        <h1 class="w3-center">Register new user</h1>
+      </header>
 
+      <div class="w3-container">
+        <div class="w3-third w3-padding-right">
+          <label for="firstName"><b>First name</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter First name" name="firstName" id="firstName" required>
+        </div>
+        <div class="w3-third w3-padding-right w3-padding-left">
+          <label for="middleName"><b>Middle name</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Middle name" name="middleName" id="middleName">
+        </div>
+        <div class="w3-third w3-padding-left">
+          <label for="lastName"><b>Last name</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Last name" name="lastName" id="lastName" required>
+        </div>
+      </div>
+
+      <div class="w3-container">
+        <div class="w3-half w3-padding-right">
+          <label for="phone"><b>Phone number</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Phone number" name="phone" id="phone" required>
+        </div>
+        <div class="w3-half w3-padding-left">
+          <label for="zaloNumber"><b>Zalo number</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Zalo number" name="zaloNumber" id="zaloNumber">
+        </div>
+      </div>
+
+      <div class="w3-container">
+        <label for="email"><b>Email address</b></label>
+        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email address" name="email" id="email" required>
+      </div>
+
+      <div class="w3-container">
+        <div class="w3-half w3-padding-right">
+          <label for="password"><b>Password</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="password" id="password" required>
+        </div>
+        <div class="w3-half w3-padding-left">
+          <label for="passwordConfirm"><b>Confirm password</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Confirming Password" name="passwordConfirm" id="passwordConfirm" required>
+        </div>
+      </div>
+
+      <div class="w3-container">
+        <div class="w3-half w3-padding-right">
+          <button class="w3-button w3-block w3-blue" type="submit">Register</button>
+        </div>
+        <div class="w3-half w3-padding-left">
+          <a href="/home" class="w3-button w3-block w3-red">Cancel</a>
+        </div>
+      </div>
+      <footer class="w3-container">
+        <h5></h5>
+      </footer>
+    </div>
+  </form>
+</body>
 </html>
