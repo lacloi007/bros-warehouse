@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.rememberme.InMemoryTokenR
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
+import tpv.bros.Const;
 import tpv.bros.common.security.SystemAuthenticationProvider;
 import tpv.bros.common.service.UserInformationService;
 
@@ -62,19 +63,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Các trang không yêu cầu login
 		http.authorizeRequests()
-			.antMatchers("/", "/home", "/login").permitAll()
+			.antMatchers(Const.PUBLIC_URL).permitAll()
 			.anyRequest().authenticated()
 
 			.and().formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/loginSuccess")
-				.failureUrl("/home")
+				.loginPage(Const.PATH_LOGIN)
+				.defaultSuccessUrl(Const.PATH_DEFAULT_SUCCESS_URL)
+				.failureUrl(Const.PATH_FAILURE_URL)
 				// .usernameParameter("username")
 				// .passwordParameter("password")
 
 			.and().logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/home")
+				.logoutUrl(Const.PATH_LOGOUT_URL)
+				.logoutSuccessUrl(Const.PATH_LOGOUT_SUCCESS_URL)
 
 			// .and().csrf().disable().exceptionHandling().accessDeniedPage("/401.html")
 			.and().exceptionHandling().accessDeniedPage("/401.html")
