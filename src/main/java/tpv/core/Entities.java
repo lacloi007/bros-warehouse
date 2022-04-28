@@ -64,6 +64,10 @@ public class Entities {
 	 * PUBLIC METHODS
 	 ******************************************/
 	public static TableInfo tblInfo(Class<? extends Entity> entityClass) {
+		if (entityClass.isAnnotationPresent(Table.class) == false) {
+			while (entityClass.isAnnotationPresent(Table.class) == false)
+				entityClass = (Class<? extends Entity>) entityClass.getSuperclass();
+		}
 		return MAP_ENTITIES.getOrDefault(entityClass, null);
 	}
 

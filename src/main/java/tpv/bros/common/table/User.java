@@ -80,5 +80,4 @@ public class User extends Entity {
 	/************************************************************
 	 *                                                  EXPANSION
 	 ************************************************************/
-	@Getter @Setter private String registerConfirmPassword;
 }
