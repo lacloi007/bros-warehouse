@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -19,7 +18,6 @@ public class Entity {
 	/********************************
 	 *              ERRORS DEFINITION
 	 ********************************/
-	@JsonAlias
 	public final EntityErrors errors = new EntityErrors();
 
 	/********************************
