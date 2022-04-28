@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import lombok.Getter;
-import lombok.Setter;
 import tpv.bros.common.mapper.UserMapper;
 import tpv.core.annotation.Column;
 import tpv.core.annotation.Table;
@@ -76,8 +75,4 @@ public class User extends Entity {
 		this.setter("roles");
 		return roles;
 	}
-
-	/************************************************************
-	 *                                                  EXPANSION
-	 ************************************************************/
 }
