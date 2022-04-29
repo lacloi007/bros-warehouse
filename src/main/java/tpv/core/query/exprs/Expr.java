@@ -9,4 +9,8 @@ public abstract class Expr {
 	public ComparableExpr equal(String text) {
 		return new ComparableExpr(this, CompareType.equal, text);
 	}
+
+	public static Expr column(String column) {
+		return new ColExpr(column);
+	}
 }

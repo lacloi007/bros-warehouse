@@ -1,5 +1,12 @@
 package tpv.bros.web.configuration;
 
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +19,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.GenericFilterBean;
 
 import tpv.bros.Const;
 import tpv.bros.common.security.SystemAuthenticationProvider;
@@ -97,6 +106,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			//	.tokenRepository(this.persistentTokenRepository())
 			//	.tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
 		;
+
+		http.addFilterAfter(new GenericFilterBean() {
+			@Override
+			public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+					throws IOException, ServletException {
+				HttpServletResponse resp = (HttpServletResponse) response;
+				resp.setHeader("Set-Cookie", "locale=vn; HttpOnly; SameSite=strict");
+				chain.doFilter(request, response);
+			}
+		}, BasicAuthenticationFilter.class);
 
 		// Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
 		// Nếu chưa login, nó sẽ redirect tới trang /login.

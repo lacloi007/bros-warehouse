@@ -13,7 +13,7 @@ import tpv.core.query.exprs.ColExpr;
 @Table(name = "COMMON__USER", prefix = "C00")
 public class User extends Entity {
 	public final static ColExpr EMAIL = new ColExpr(UserMapper.COLUMN___EMAIL);
-	@Column(name = UserMapper.COLUMN___EMAIL, type = ColumnType.EMAIL, mandatory = true, maxLength = 1000)
+	@Column(name = UserMapper.COLUMN___EMAIL, label = "Email address", type = ColumnType.EMAIL, unique = true, mandatory = true, maxLength = 1000)
 	@Getter private String email;
 	public void setEmail(String email) {
 		this.setter("email");
@@ -21,7 +21,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr PASSWORD = new ColExpr(UserMapper.COLUMN___PASSWORD);
-	@Column(name = UserMapper.COLUMN___PASSWORD, type = ColumnType.TEXT, mandatory = true, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___PASSWORD, label = "Password", type = ColumnType.TEXT, mandatory = true, maxLength = 255)
 	@Getter private String password;
 	public void setPassword(String password) {
 		this.setter("password");
@@ -29,7 +29,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr FIRST_NAME = new ColExpr(UserMapper.COLUMN___FIRST_NAME);
-	@Column(name = UserMapper.COLUMN___FIRST_NAME, type = ColumnType.TEXT, mandatory = true, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___FIRST_NAME, label = "First name", type = ColumnType.TEXT, mandatory = true, maxLength = 255)
 	@Getter private String firstName;
 	public void setFirstName(String firstName) {
 		this.setter("firstName");
@@ -37,7 +37,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr LAST_NAME = new ColExpr(UserMapper.COLUMN___LAST_NAME);
-	@Column(name = UserMapper.COLUMN___LAST_NAME, type = ColumnType.TEXT, mandatory = true, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___LAST_NAME, label = "Last name", type = ColumnType.TEXT, mandatory = true, maxLength = 255)
 	@Getter private String lastName;
 	public void setLastName(String lastName) {
 		this.setter("lastName");
@@ -45,7 +45,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr MIDDLE_NAME = new ColExpr(UserMapper.COLUMN___MIDDLE_NAME);
-	@Column(name = UserMapper.COLUMN___MIDDLE_NAME, type = ColumnType.TEXT, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___MIDDLE_NAME, label = "Middle name", type = ColumnType.TEXT, maxLength = 255)
 	@Getter private String middleName;
 	public void setMiddleName(String middleName) {
 		this.setter("middleName");
@@ -53,7 +53,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr PHONE_NUMBER = new ColExpr(UserMapper.COLUMN___PHONE_NUMBER);
-	@Column(name = UserMapper.COLUMN___PHONE_NUMBER, type = ColumnType.TEXT, mandatory = true, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___PHONE_NUMBER, label = "Phone number", type = ColumnType.TEXT, mandatory = true, maxLength = 255)
 	@Getter private String phoneNumber;
 	public void setPhoneNumber(String phoneNumber) {
 		this.setter("phoneNumber");
@@ -61,7 +61,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr ZALO_NUMBER = new ColExpr(UserMapper.COLUMN___ZALO_NUMBER);
-	@Column(name = UserMapper.COLUMN___ZALO_NUMBER, type = ColumnType.TEXT, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___ZALO_NUMBER, label = "Zalo number", type = ColumnType.TEXT, maxLength = 255)
 	@Getter private String zaloNumber;
 	public void setZaloNumber(String zaloNumber) {
 		this.setter("zaloNumber");
@@ -69,7 +69,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr ROLES = new ColExpr(UserMapper.COLUMN___ROLES);
-	@Column(name = UserMapper.COLUMN___ROLES, type = ColumnType.SET)
+	@Column(name = UserMapper.COLUMN___ROLES, label = "Roles", type = ColumnType.SET)
 	private final Set<String> roles = new LinkedHashSet<>();
 	public Set<String> getRoles() {
 		this.setter("roles");

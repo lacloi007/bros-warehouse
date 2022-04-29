@@ -1,4 +1,3 @@
-var app = angular.module("brosApplication", ["ngRoute"]);
 app.config(function($routeProvider) {
   $routeProvider
     .when("/dashboard", { templateUrl: "/html/adminDashboard.html", activetab: "m1", controller : "adminDashboard" })

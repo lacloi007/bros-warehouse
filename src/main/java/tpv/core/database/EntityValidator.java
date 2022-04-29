@@ -11,6 +11,9 @@ import tpv.core.Entities;
 import tpv.core.Entities.FieldInfo;
 import tpv.core.Entities.TableInfo;
 import tpv.core.annotation.Column;
+import tpv.core.define.enm.EntityErrorCode;
+import tpv.core.query.Query;
+import tpv.core.query.exprs.Expr;
 
 public class EntityValidator {
 	public static <T extends Entity> boolean validateBeforeInsert(T instance) {
@@ -30,21 +33,44 @@ public class EntityValidator {
 		for (FieldInfo field: table.databaseFields.values()) {
 			Column fieldColumn = field.getColumn();
 			String declaredField = field.getDeclaredField();
+			String databaseField = field.getDatabaseField();
 			Object fieldValue = accessor.getPropertyValue(declaredField);
 			String fieldStringValue = textValue(fieldValue);
 			if (isUpdate && instance.updatedFields.contains(declaredField) == false)
 				continue;
 
+			String fieldLabel = fieldColumn.label();
+
+			// verify MANDATORY constraint
 			if (fieldColumn.mandatory() && fieldStringValue.isEmpty()) {
-				instance.errors.addError(declaredField, "Field [" + declaredField + "] is mandatory");
+				instance.errors.addError(declaredField, EntityErrorCode.mandatory, fieldLabel + " is mandatory");
 				if (returnFirstError)
 					return false;
 			}
 
+			// verify MAX-LENGTH constraint
 			if (fieldColumn.maxLength() > 0 && fieldStringValue.length() > fieldColumn.maxLength()) {
-				instance.errors.addError(declaredField, "Field content of [" + declaredField + "] is exceed " + fieldColumn.maxLength());
+				instance.errors.addError(declaredField, EntityErrorCode.maxLength, "Content of " + fieldLabel + " is exceed " + fieldColumn.maxLength());
 				if (returnFirstError)
 					return false;
+			}
+
+			// verify UNIQUE constraint
+			if (fieldColumn.unique() && fieldStringValue.isEmpty() == false) {
+				boolean isError = true;
+				/** Query to verify UNIQUE */ {
+					isError = Query.select(Entity.ID)
+							.from(instance.getClass())
+							.where(Expr.column(databaseField).equal(fieldStringValue))
+							.queryList()
+							.isEmpty() == false;
+				}
+
+				if (isError) {
+					instance.errors.addError(declaredField, EntityErrorCode.unique, fieldLabel + " is dupplicated.");
+					if (returnFirstError)
+						return false;
+				}
 			}
 		}
 

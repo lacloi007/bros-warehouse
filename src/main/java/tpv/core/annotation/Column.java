@@ -15,7 +15,9 @@ public @interface Column {
 	String name();
 	ColumnType type() default ColumnType.UNDEFINED;
 	boolean mandatory() default false;
+	boolean unique() default false;
 	int maxLength() default -1;
+	String label() default "";
 
 	// definition for (ENCRYPTION)
 	EncryptionType encryptType() default EncryptionType.UNDEFINED;

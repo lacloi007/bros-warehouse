@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEADER -->
+<th:block th:fragment="header">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" th:href="@{/css/application.css?process=true}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <script th:src="@{/js/application.js?process=true}"></script>
+</th:block>
+
+<!-- LOADER -->
+<th:block th:fragment="loader">
+  <div ng-show="loading"
+    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: whitesmoke; opacity: 0.5;" >
+    <div class="loader" style="margin:auto; left:0; right:0; top:0; bottom:0; position:fixed;"></div>
+  </div>
+</th:block>
+
+<!-- brsInput -->
+<th:block th:fragment="brsInput">
+  <label th:for="${field}"><b>[[${label}]]</b></label>
+  <input th:ng-model="|form.${field}|"
+    class="w3-input w3-border" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"
+    th:id="${field}" th:required="${required}?:null"
+    th:ng-class="|{'w3-border-red': error.hasError('${field}')}|"
+  >
+  <th:block th:include="this :: brsError"/>
+</th:block>
+
+<!-- brsError -->
+<th:block th:fragment="brsError">
+  <ul th:ng-show="|error.hasError('${field}')|"
+    class="w3-ul w3-leftbar w3-flat-orange w3-small"
+    th:classappend="${appendClasses}?:null">
+    <li th:ng-repeat="|err in error.getErrors('${field}')|">{{err}}</li>
+  </ul>
+</th:block>

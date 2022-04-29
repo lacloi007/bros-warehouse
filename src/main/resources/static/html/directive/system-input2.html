@@ -1,0 +1,4 @@
+<label for="{{info.field}}"><b>First name</b></label>
+<input ng-model="{{info.form}}.{{info.field}}"
+  class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter {{info.label}}"
+  id="{{info.field}}" {{info.required == true ? 'required':''}}>

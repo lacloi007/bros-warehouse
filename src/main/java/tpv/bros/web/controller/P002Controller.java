@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tpv.bros.web.form.P002Form;
 import tpv.core.database.Database;
 import tpv.core.database.EntityValidator;
+import tpv.core.define.enm.EntityErrorCode;
 
 @RestController
 public class P002Controller {
@@ -25,7 +26,7 @@ public class P002Controller {
 		/** for validating */ {
 			EntityValidator.validateBeforeInsert(user);
 			if (StringUtils.isEmpty(user.getRegisterConfirmPassword()))
-				user.errors.addError("registerConfirmPassword", "Field [registerConfirmPassword] is mandatory");
+				user.errors.addError("registerConfirmPassword", EntityErrorCode.mandatory, "Field [registerConfirmPassword] is mandatory");
 			if (StringUtils.equals(user.getPassword(), user.getRegisterConfirmPassword()) == false)
 				user.errors.addError("Password is not matched");
 			if (user.errors.hasError())

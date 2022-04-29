@@ -123,5 +123,6 @@ public class Entities {
 		}
 
 		public String getDatabaseField() { return column.name(); }
+		public String label() { return column.label(); }
 	}
 }
