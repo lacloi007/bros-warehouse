@@ -39,18 +39,27 @@
         th:with="field = 'newSku', label = 'New SKU'" />
     </div>
   </div>
-  
+
   <div class="w3-container w3-small" style="padding: 5px 10px;">
     <label class="w3-margin-right"><b>Receiving status : </b></label>
     <!-- <li th:ng-repeat="|err in error.getErrors('${field}')|">{{err}}</li> -->
     <div class="w3-margin-right" style="display: inline-block;" ng-repeat="item in receivingStatus">
       <input class="w3-check w3-size-small" id="status-{{item.key}}" value="{{item.key}}" type="checkbox"><label for="status-{{item.key}}"> {{item.value}}</label>
     </div>
-      
   </div>
 </div>
+
+<!-- BUTTON PANEL -->
+<div class="w3-container">
+  <div class="w3-right-align">
+    <button class="w3-button w3-teal">Add new</button>
+    <button class="w3-button w3-teal">Reset</button>
+    <button class="w3-button w3-teal">Search</button>
+  </div>
+</div>
+
 
 <!-- SEARCH RESULT -->
 <div class="w3-container">
   <h6>Search result</h6>
-  
+</div>
