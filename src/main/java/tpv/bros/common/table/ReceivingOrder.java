@@ -60,8 +60,8 @@ public class ReceivingOrder extends Entity {
 
 	public final static ColExpr WEIGHT_UNIT = new ColExpr(ReceivingOrderMapper.COLUMN___WEIGHT_UNIT);
 	@Column(name = ReceivingOrderMapper.COLUMN___WEIGHT_UNIT, label = "Weight Unit", type = ColumnType.ENUMERATE)
-	@Getter private String weightUnit;
-	public void setWeightUnit(String weightUnit) {
+	@Getter private tpv.bros.common.enumerate.WeightUnit weightUnit;
+	public void setWeightUnit(tpv.bros.common.enumerate.WeightUnit weightUnit) {
 		this.setter("weightUnit");
 		this.weightUnit = weightUnit;
 	}
@@ -148,16 +148,16 @@ public class ReceivingOrder extends Entity {
 
 	public final static ColExpr DATA_TYPE = new ColExpr(ReceivingOrderMapper.COLUMN___DATA_TYPE);
 	@Column(name = ReceivingOrderMapper.COLUMN___DATA_TYPE, label = "Type", type = ColumnType.ENUMERATE)
-	@Getter private String dataType;
-	public void setDataType(String dataType) {
+	@Getter private tpv.bros.common.enumerate.ReceivingOrderDataType dataType;
+	public void setDataType(tpv.bros.common.enumerate.ReceivingOrderDataType dataType) {
 		this.setter("dataType");
 		this.dataType = dataType;
 	}
 
 	public final static ColExpr STATUS = new ColExpr(ReceivingOrderMapper.COLUMN___STATUS);
 	@Column(name = ReceivingOrderMapper.COLUMN___STATUS, label = "Status", type = ColumnType.ENUMERATE)
-	@Getter private String status;
-	public void setStatus(String status) {
+	@Getter private tpv.bros.common.enumerate.ReceivingOrderStatus status;
+	public void setStatus(tpv.bros.common.enumerate.ReceivingOrderStatus status) {
 		this.setter("status");
 		this.status = status;
 	}
