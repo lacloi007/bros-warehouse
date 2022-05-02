@@ -68,10 +68,9 @@ public class User extends Entity {
 
 	public final static ColExpr ROLES = new ColExpr(UserMapper.COLUMN___ROLES);
 	@Column(name = UserMapper.COLUMN___ROLES, label = "Roles", type = ColumnType.SET)
-	private final java.util.Set<String> roles = new java.util.LinkedHashSet<>();
-	public java.util.Set<String> getRoles() {
-		this.setter("roles");
-		return roles;
-	}
+	@Getter private final java.util.Set<String> roles = new java.util.LinkedHashSet<>();
+	public void addRoles(String item) { setter("roles"); this.roles.add(item); }
+	public void clearRoles() { setter("roles"); this.roles.clear(); }
+	public void removeRoles(String item) { setter("roles"); this.roles.remove(item); }
 
 }

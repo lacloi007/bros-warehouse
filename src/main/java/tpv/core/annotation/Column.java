@@ -25,4 +25,8 @@ public @interface Column {
 
 	// definition for (REFER, MASTER)
 	Class<? extends Entity> referTo() default Entity.class;
+
+	// definition for (NUMERIC)
+	int precision() default -1;
+	int scale() default -1;
 }

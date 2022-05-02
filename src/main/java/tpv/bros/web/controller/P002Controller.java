@@ -34,7 +34,7 @@ public class P002Controller {
 		}
 
 		// update default role from register function
-		user.getRoles().add("user");
+		user.addRoles("user");
 
 		try {
 			Database.insert(user);

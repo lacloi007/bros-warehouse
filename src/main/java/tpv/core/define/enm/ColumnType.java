@@ -16,5 +16,5 @@ public enum ColumnType {
 
 	, SET          // SET (split by "|")
 	, ENUMERATE    // ENUM
-	, INTEGER, LONG, DECIMAL
+	, NUMERIC
 }

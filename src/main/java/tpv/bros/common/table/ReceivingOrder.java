@@ -19,9 +19,9 @@ public class ReceivingOrder extends Entity {
 	}
 
 	public final static ColExpr NUMBER_OF_BOX = new ColExpr(ReceivingOrderMapper.COLUMN___NUMBER_OF_BOX);
-	@Column(name = ReceivingOrderMapper.COLUMN___NUMBER_OF_BOX, label = "Number of Box", type = ColumnType.INTEGER)
-	@Getter private String numberOfBox;
-	public void setNumberOfBox(String numberOfBox) {
+	@Column(name = ReceivingOrderMapper.COLUMN___NUMBER_OF_BOX, label = "Number of Box", type = ColumnType.NUMERIC, precision = 3)
+	@Getter private Integer numberOfBox;
+	public void setNumberOfBox(Integer numberOfBox) {
 		this.setter("numberOfBox");
 		this.numberOfBox = numberOfBox;
 	}
@@ -43,17 +43,17 @@ public class ReceivingOrder extends Entity {
 	}
 
 	public final static ColExpr QUANTITY = new ColExpr(ReceivingOrderMapper.COLUMN___QUANTITY);
-	@Column(name = ReceivingOrderMapper.COLUMN___QUANTITY, label = "Quantity", type = ColumnType.DECIMAL)
-	@Getter private String quantity;
-	public void setQuantity(String quantity) {
+	@Column(name = ReceivingOrderMapper.COLUMN___QUANTITY, label = "Quantity", type = ColumnType.NUMERIC, precision = 20, scale = 2)
+	@Getter private java.math.BigDecimal quantity;
+	public void setQuantity(java.math.BigDecimal quantity) {
 		this.setter("quantity");
 		this.quantity = quantity;
 	}
 
 	public final static ColExpr WEIGHT_PER_ITEM = new ColExpr(ReceivingOrderMapper.COLUMN___WEIGHT_PER_ITEM);
-	@Column(name = ReceivingOrderMapper.COLUMN___WEIGHT_PER_ITEM, label = "Weight per item", type = ColumnType.DECIMAL)
-	@Getter private String weightPerItem;
-	public void setWeightPerItem(String weightPerItem) {
+	@Column(name = ReceivingOrderMapper.COLUMN___WEIGHT_PER_ITEM, label = "Weight per item", type = ColumnType.NUMERIC, precision = 20, scale = 2)
+	@Getter private java.math.BigDecimal weightPerItem;
+	public void setWeightPerItem(java.math.BigDecimal weightPerItem) {
 		this.setter("weightPerItem");
 		this.weightPerItem = weightPerItem;
 	}
@@ -67,25 +67,25 @@ public class ReceivingOrder extends Entity {
 	}
 
 	public final static ColExpr INCH_LENGTH = new ColExpr(ReceivingOrderMapper.COLUMN___INCH_LENGTH);
-	@Column(name = ReceivingOrderMapper.COLUMN___INCH_LENGTH, label = "Length (inch)", type = ColumnType.DECIMAL)
-	@Getter private String inchLength;
-	public void setInchLength(String inchLength) {
+	@Column(name = ReceivingOrderMapper.COLUMN___INCH_LENGTH, label = "Length (inch)", type = ColumnType.NUMERIC, precision = 20, scale = 2)
+	@Getter private java.math.BigDecimal inchLength;
+	public void setInchLength(java.math.BigDecimal inchLength) {
 		this.setter("inchLength");
 		this.inchLength = inchLength;
 	}
 
 	public final static ColExpr INCH_WIDTH = new ColExpr(ReceivingOrderMapper.COLUMN___INCH_WIDTH);
-	@Column(name = ReceivingOrderMapper.COLUMN___INCH_WIDTH, label = "Width (inch)", type = ColumnType.DECIMAL)
-	@Getter private String inchWidth;
-	public void setInchWidth(String inchWidth) {
+	@Column(name = ReceivingOrderMapper.COLUMN___INCH_WIDTH, label = "Width (inch)", type = ColumnType.NUMERIC, precision = 20, scale = 2)
+	@Getter private java.math.BigDecimal inchWidth;
+	public void setInchWidth(java.math.BigDecimal inchWidth) {
 		this.setter("inchWidth");
 		this.inchWidth = inchWidth;
 	}
 
 	public final static ColExpr INCH_HEIGHT = new ColExpr(ReceivingOrderMapper.COLUMN___INCH_HEIGHT);
-	@Column(name = ReceivingOrderMapper.COLUMN___INCH_HEIGHT, label = "Height (inch)", type = ColumnType.DECIMAL)
-	@Getter private String inchHeight;
-	public void setInchHeight(String inchHeight) {
+	@Column(name = ReceivingOrderMapper.COLUMN___INCH_HEIGHT, label = "Height (inch)", type = ColumnType.NUMERIC, precision = 20, scale = 2)
+	@Getter private java.math.BigDecimal inchHeight;
+	public void setInchHeight(java.math.BigDecimal inchHeight) {
 		this.setter("inchHeight");
 		this.inchHeight = inchHeight;
 	}
