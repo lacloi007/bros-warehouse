@@ -24,5 +24,6 @@ public class Const {
 			, PATH_P006_PRICE_LIST
 			, "/all"
 			, "/rs-user*"
+			, "/render"
 	};
 }

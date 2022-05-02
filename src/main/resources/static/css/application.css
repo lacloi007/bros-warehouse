@@ -2,6 +2,8 @@
 .w3-padding-top { padding-top: 4px; }
 .w3-padding-right { padding-right: 4px; }
 .w3-padding-left { padding-left: 4px; }
+.w3-margin-small { margin: 6px; }
+.w3-size-small { width: 16px; height: 16px; top: 3px;}
 .fa:hover { color:black !important; }
 .loader {
   border: 16px solid #f3f3f3;

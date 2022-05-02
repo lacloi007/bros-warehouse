@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="w3-container w3-teal">
+  <h3>Danh sách nhập hàng</h3>
+</div>
+
+<!-- SEARCH CONDITION -->
+<div class="w3-container w3-border w3-round w3-sand w3-margin-small" style="padding: 5px;">
+  <h6 class="w3-container w3-border-bottom" style="padding: 0px 4px;margin: 0px;">Search condition</h6>
+
+  <!-- GLOBAL ERROR -->
+  <th:block th:include="fragments/general.html :: brsError" 
+    th:with="field = 'global', appendClasses = 'w3-margin'"/>
+
+  <div class="w3-container w3-small " style="padding: 15px 10px 5px;">
+    <div class="w3-half w3-padding-right">
+      <th:block th:include="fragments/general.html :: brsInputSearch" 
+        th:with="field = 'shipment', label = 'Shipment ID'" />
+    </div>
+    <div class="w3-half w3-padding-left">
+      <th:block th:include="fragments/general.html :: brsInputSearch" 
+        th:with="field = 'type', label = 'Type'" />
+    </div>
+  </div>
+
+  <div class="w3-container w3-small" style="padding: 5px 10px;">
+    <div class="w3-third w3-padding-right">
+      <th:block th:include="fragments/general.html :: brsInputSearch" 
+        th:with="field = 'box', label = 'Box ID (KH)'" />
+    </div>
+    <div class="w3-third w3-padding-right w3-padding-left">
+      <th:block th:include="fragments/general.html :: brsInputSearch" 
+        th:with="field = 'sku', label = 'SKU (KH)'" />
+    </div>
+    <div class="w3-third w3-padding-left">
+      <th:block th:include="fragments/general.html :: brsInputSearch" 
+        th:with="field = 'newSku', label = 'New SKU'" />
+    </div>
+  </div>
+  
+  <div class="w3-container w3-small" style="padding: 5px 10px;">
+    <label class="w3-margin-right"><b>Receiving status : </b></label>
+    <!-- <li th:ng-repeat="|err in error.getErrors('${field}')|">{{err}}</li> -->
+    <div class="w3-margin-right" style="display: inline-block;" ng-repeat="item in receivingStatus">
+      <input class="w3-check w3-size-small" id="status-{{item.key}}" value="{{item.key}}" type="checkbox"><label for="status-{{item.key}}"> {{item.value}}</label>
+    </div>
+      
+  </div>
+</div>
+
+<!-- SEARCH RESULT -->
+<div class="w3-container">
+  <h6>Search result</h6>
+  

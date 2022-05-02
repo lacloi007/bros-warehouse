@@ -75,6 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Các trang không yêu cầu login
 		http.authorizeRequests()
 			.antMatchers(Const.PUBLIC_URL).permitAll()
+			.antMatchers("/userPanel/**").hasAuthority("user")
 			.anyRequest().authenticated()
 
 			.and().formLogin()

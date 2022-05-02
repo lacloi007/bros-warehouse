@@ -1,46 +1,31 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>User page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-  <style type="text/css">
-  .fa:hover { color:black !important; }
-  </style>
+  <title>User panel</title>
+  <th:block th:include="fragments/general.html :: header"></th:block>
 </head>
 <body ng-app="brosApplication">
   <!-- TOP MENU -->
-  <div class="w3-row">
-    <div class="w3-green w3-container w3-quarter">
-      <h2><a href="/"><i class="fa fa-home"></i></a></h2>
-    </div>
-    <div class="w3-green w3-container w3-threequarter w3-right-align">
-      <h2>
-        <a href="/logout"><i class="fa fa-sign-out"></i></a>
-      </h2>
-    </div>
-  </div>
+  <th:block th:include="fragments/general.html :: dashboard-top-menu"></th:block>
 
   <!-- LEFT SIDE -->
-  <div class="w3-sidebar w3-bar-block w3-border w3-card" style="width:25%">
+  <div class="w3-sidebar w3-bar-block w3-border w3-card" style="width:200px;">
     <a href="#!dashboard" class="w3-bar-item w3-button w3-border-bottom">Dashboard</a>
-    <a href="#!receiving" class="w3-bar-item w3-button w3-border-bottom">Nháº­n hÃ ng</a>
-    <a href="#!saving"    class="w3-bar-item w3-button w3-border-bottom">LÆ°u kho hÃ ng hÃ³a</a>
-    <a href="#!order"     class="w3-bar-item w3-button w3-border-bottom">Ä�Æ¡n hÃ ng</a>
-    <a href="#!pack"      class="w3-bar-item w3-button w3-border-bottom">Ä�Ã³ng gÃ³i</a>
-    <a href="#!customer"  class="w3-bar-item w3-button ">ThÃ´ng tin khÃ¡ch hÃ ng</a>
+    <a href="#!receive"   class="w3-bar-item w3-button w3-border-bottom">Nhập hàng</a>
+    <a href="#!storage"   class="w3-bar-item w3-button w3-border-bottom">Lưu kho</a>
+    <a href="#!order"     class="w3-bar-item w3-button w3-border-bottom">Đặt hàng</a>
+    <a href="#!receipt"   class="w3-bar-item w3-button w3-border-bottom">Hóa đơn</a>
+    <a href="#!staff"     class="w3-bar-item w3-button w3-border-bottom">Nhân viên</a>
+    <a href="#!user-information" class="w3-bar-item w3-button">Thông tin cá nhân</a>
   </div>
 
   <!-- RIGHT SIDE -->
-  <div style="margin-left:25%">
+  <div style="margin-left:200px">
     <span ng-view></span>
   </div>
 
-  <script src= "/js/admin.js"></script>
+  <script src= "/js/user-panel.js?process=true"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <th:block th:fragment="header">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
@@ -14,6 +15,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
   <script th:src="@{/js/application.js?process=true}"></script>
+</th:block>
+
+<!-- HEADER -->
+<th:block th:fragment="dashboard-top-menu">
+  <div class="w3-row">
+    <div class="w3-green w3-container w3-quarter">
+      <h2><a href="/"><i class="fa fa-home"></i></a></h2>
+    </div>
+    <div class="w3-green w3-container w3-threequarter w3-right-align">
+      <h2>
+        <a href="/logout"><i class="fa fa-sign-out"></i></a>
+      </h2>
+    </div>
+  </div>
 </th:block>
 
 <!-- LOADER -->
@@ -26,6 +41,17 @@
 
 <!-- brsInput -->
 <th:block th:fragment="brsInput">
+  <label th:for="${field}"><b>[[${label}]]</b></label>
+  <input th:ng-model="|form.${field}|"
+    class="w3-input w3-border" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"
+    th:id="${field}" th:required="${required}?:null"
+    th:ng-class="|{'w3-border-red': error.hasError('${field}')}|"
+  >
+  <th:block th:include="this :: brsError"/>
+</th:block>
+
+<!-- brsInputSearch -->
+<th:block th:fragment="brsInputSearch">
   <label th:for="${field}"><b>[[${label}]]</b></label>
   <input th:ng-model="|form.${field}|"
     class="w3-input w3-border" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"

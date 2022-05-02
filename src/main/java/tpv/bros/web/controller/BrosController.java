@@ -1,10 +1,13 @@
 package tpv.bros.web.controller;
 
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tpv.bros.Const;
 import tpv.bros.common.security.CurrentUserInfo;
@@ -29,6 +32,13 @@ public class BrosController {
 	@GetMapping(path = "/admin")                         protected String GET__A001(Model model) { return "pages/QA001_home"; }
 	@GetMapping(path = "/staff")                         protected String GET__S001(Model model) { return "pages/QS001_home"; }
 	@GetMapping(path = "/user")                          protected String GET__U001(Model model) { return "pages/QU001_home"; }
+
+	@GetMapping(path = "/render")
+	protected String RENDER(Model model, @RequestParam(required = false) String page) {
+		if (StringUtils.isBlank(page))
+			return DEFAULT;
+		return "pages/" + page;
+	}
 
 	@GetMapping(path = Const.PATH_DEFAULT_SUCCESS_URL)
 	protected String GET__P003Redirect(Model model) {

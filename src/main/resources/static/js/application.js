@@ -1,18 +1,31 @@
 var app = angular.module("brosApplication", ["ngRoute"]);
-app.directive('sys-input', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      //form: '=form'
-      //, field: '=field'
-      //, label: '=label'
-      //, required: '=required'
-      info: '=data'
-    },
-    templateUrl: 'html/directive/system-input2.html'
+
+/****************************************************************
+ *                                                      CONSTANTS
+ ****************************************************************/
+app.value('config', {
+  receivingStatus: [
+    {key: "open", value: "Open"}
+    , {key: "inProgress", value: "In progress"}
+    , {key: "pending", value: "Pending"}
+    , {key: "resolved", value: "Resolved"}
+    , {key: "canceled", value: "Canceled"}
+  ]
+});
+
+/****************************************************************
+ *                                    USER INFORMATION CONTROLLER
+ ****************************************************************/
+app.controller("userInformationCtrl", function($scope, $http, $window) {
+  $scope.loading = false;
+  $scope.error = new BrosErrors();
+  $scope.form = {
   };
 });
 
+/****************************************************************
+ *                                      EXTERNAL CLASS DEFINITION
+ ****************************************************************/
 class BrosErrors {
   constructor() { this.errors = {}; }
   add(field, message) { if (this.errors[field] === undefined) this.errors[field] = []; this.errors[field].push(message); }
