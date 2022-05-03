@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="w3-container w3-row w3-teal">
+  <div class="w3-twothird">
+    <h5 class="bros-inline">Receiving Order - New</h5>
+    <select ng-model="form.dataType" class="w3-select bros-inline bros-small-button" style="width: 130px;">
+      <option value="{{item.key}}" ng-repeat="item in receivingOrderDataType">{{item.value}}</option>
+    </select>
+  </div>
+  <div class="w3-third w3-right-align">
+    <a class="w3-button w3-round bros-small-button" href="#!receive"><i class="fa fa-arrow-circle-left"></i> Back</a>
+    <a class="w3-button w3-round bros-small-button" ng-click="clickSave()"><i class="fa fa-floppy-o"></i> Save</a>
+  </div>
+</div>
+
+<!-- w3-striped  -->
+<table class="w3-table w3-hoverable w3-small">
+  <colgroup>
+    <col width="200px">
+    <col width="*">
+    <col width="200px">
+    <col width="*">
+  </colgroup>
+
+  <tr style="margin-top: 10px">
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'boxId', label = 'Box ID'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'numberOfBox', label = 'Number of Box'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'productDescription', label = 'Product description', colspan = 3" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'sku', label = 'SKU'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'quantity', label = 'Quantity'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'weightPerItem', label = 'Weight per item'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'weightUnit', label = 'Weight Unit'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'inchLength', label = 'Length (inch)'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'inchWidth', label = 'Width (inch)'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'inchHeight', label = 'Height (inch)'" />
+    <th:block th:include="fragments/generalTable.html :: brsDateTimePicker" 
+      th:with="field = 'shippingDate', label = 'Shipping Date'" />
+  </tr>
+  
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'trackingNumber', label = 'trackingNumber'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'warehouseId', label = 'Warehouse ID'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'newSku', label = 'New SKU'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'isFragileGood', label = 'Is fragile good?'" />
+  </tr>
+
+  <tr>
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'buyerInformation', label = 'Buyer information'" />
+    <th:block th:include="fragments/generalTable.html :: brsInput" 
+      th:with="field = 'buyerAddress', label = 'Buyer address'" />
+  </tr>
+</table>
+
+<script type="text/javascript">
+$(function() {
+  $("input.date-time-picker").datepicker({
+    showOn: 'button', dateFormat: 'dd/mm/yy', constrainInput: true, onSelect: function(datetext){
+      var d = new Date(); // for now
+      var h = d.getHours();
+      h = (h < 10) ? ("0" + h) : h ;
+      var m = d.getMinutes();
+      m = (m < 10) ? ("0" + m) : m ;
+
+      datetext = datetext + " " + h + ":" + m;
+      $(this).val(datetext);
+    },
+  });
+});
+</script>

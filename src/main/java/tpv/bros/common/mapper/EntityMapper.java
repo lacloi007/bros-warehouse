@@ -68,7 +68,7 @@ public abstract class EntityMapper<T extends Entity> implements RowMapper<T> {
 		PropertyAccessor accessor = PropertyAccessorFactory.forBeanPropertyAccess(instance);
 
 		baseMapper(instance, rs, columnNames);
-		TableInfo table = Entities.tblInfo(User.class);
+		TableInfo table = Entities.tblInfoByClassName(User.class);
 		for (FieldInfo field: table.databaseFields.values()) {
 			ColumnType type = field.getColumn().type();
 			String databaseField = field.getDatabaseField();

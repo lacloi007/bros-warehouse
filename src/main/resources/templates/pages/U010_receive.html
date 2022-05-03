@@ -2,8 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<div class="w3-container w3-teal">
-  <h3>Danh sách nhập hàng</h3>
+<div class="w3-container w3-row w3-teal">
+  <div class="w3-twothird">
+    <h5 class="bros-inline">Receiving Order - List</h5>
+  </div>
+  <div class="w3-third w3-right-align">
+    <a class="w3-button w3-round bros-small-button" href="#!receiveCreate"><i class="fa fa-plus-circle"></i> Add new</a>
+    <button class="w3-button w3-round bros-small-button" ng-click="clickSearch()"><i class="fa fa-search"></i> Search</button>
+  </div>
 </div>
 
 <!-- SEARCH CONDITION -->
@@ -50,16 +56,19 @@
 </div>
 
 <!-- BUTTON PANEL -->
+<!-- 
 <div class="w3-container">
   <div class="w3-right-align">
-    <button class="w3-button w3-teal">Add new</button>
-    <button class="w3-button w3-teal">Reset</button>
-    <button class="w3-button w3-teal">Search</button>
+    <a href="#!receiveCreate" class="w3-button w3-blue" >Add new</a>
+    <button class="w3-button w3-red" ng-click="clickReset()">Reset</button>
+    <button class="w3-button w3-teal" ng-click="clickSearch()">Search</button>
   </div>
 </div>
+ -->
 
 
 <!-- SEARCH RESULT -->
 <div class="w3-container">
   <h6>Search result</h6>
 </div>
+

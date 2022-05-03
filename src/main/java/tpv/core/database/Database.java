@@ -40,7 +40,7 @@ public class Database {
 			throw new DatabaseException();
 
 		AtomicLong current = new AtomicLong(new Date().getTime());
-		TableInfo table = Entities.tblInfo(record.getClass());
+		TableInfo table = Entities.tblInfoByClassName(record.getClass());
 		String recordId = generateId(table.getPrefix(), current);
 		Operator preparation = new Operator(OperatorType.insert, record, recordId, table);
 		template.update(preparation.sql(), preparation.params());
@@ -54,7 +54,7 @@ public class Database {
 	public static <T extends Entity> void update(T record) {
 		if (record.getId() == null || record.getId().isEmpty())
 			throw new DatabaseException();
-		TableInfo table = Entities.tblInfo(record.getClass());
+		TableInfo table = Entities.tblInfoByClassName(record.getClass());
 		String recordId = record.getId();
 		Operator preparation = new Operator(OperatorType.update, record, recordId, table);
 		template.update(preparation.sql(), preparation.params());
@@ -67,7 +67,7 @@ public class Database {
 	public static <T extends Entity> void delete(T record) {
 		if (record.getId() == null || record.getId().isEmpty())
 			throw new DatabaseException();
-		TableInfo table = Entities.tblInfo(record.getClass());
+		TableInfo table = Entities.tblInfoByClassName(record.getClass());
 		String recordId = record.getId();
 		Operator preparation = new Operator(OperatorType.delete, record, recordId, table);
 		template.update(preparation.sql(), preparation.params());

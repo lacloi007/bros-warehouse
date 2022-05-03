@@ -71,11 +71,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// http.csrf().disable();
+		http.sessionManagement().maximumSessions(2);
 
 		// Các trang không yêu cầu login
 		http.authorizeRequests()
 			.antMatchers(Const.PUBLIC_URL).permitAll()
-			.antMatchers("/userPanel/**").hasAuthority("user")
 			.anyRequest().authenticated()
 
 			.and().formLogin()
@@ -100,6 +100,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			// for restful
 			.and().authorizeHttpRequests()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
+				.antMatchers(HttpMethod.POST, "/receivingOrderCreate").hasAnyRole("ROLE_user")
 			.and().csrf().disable()
 
 			// Cấu hình Remember Me.

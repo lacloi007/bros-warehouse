@@ -31,7 +31,7 @@ app.controller("registerController", function($scope, $http, $window) {
     alert("Register successfully.");
     $window.location.href = "/login";
   }
-  function __error(res, d1, d2, d3) {
+  function __error(res) {
     __toggleLoader();
     var errors = res.data.errors.errors;
     if (errors !== undefined && errors.length > 0)

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- brsInput -->
+<th:block th:fragment="brsInput">
+  <td><p class="bros-small-input"><label th:for="${field}"><b>[[${label}]]</b></label></p></td>
+  <td th:colspan="${colspan}?:1">
+    <input th:ng-model="|form.${field}|" th:name="${field}"
+      class="w3-input w3-border bros-small-input" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"
+      th:id="${field}" th:required="${required}?:null"
+      th:ng-class="|{'w3-border-red': error.hasError('${field}')}|">
+    <th:block th:include="this :: brsError"/>
+  </td>
+</th:block>
+
+<!-- brsDateTimePicker -->
+<th:block th:fragment="brsDateTimePicker">
+  <td><p class="bros-small-input"><label th:for="${field}"><b>[[${label}]]</b></label></p></td>
+  <td th:colspan="${colspan}?:1">
+    <input th:ng-model="|form.${field}|" th:name="${field}" style="width: 150px; display: inline-block;"
+      class="w3-input w3-border bros-small-input date-time-picker" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"
+      th:id="${field}" th:required="${required}?:null"
+      th:ng-class="|{'w3-border-red': error.hasError('${field}')}|">
+    <th:block th:include="this :: brsError"/>
+  </td>
+</th:block>
+
+<!-- brsError -->
+<th:block th:fragment="brsError">
+  <ul th:ng-show="|error.hasError('${field}')|"
+    class="w3-ul w3-leftbar w3-flat-orange w3-small"
+    th:classappend="${appendClasses}?:null">
+    <li th:ng-repeat="|err in error.getErrors('${field}')|">{{err}}</li>
+  </ul>
+</th:block>

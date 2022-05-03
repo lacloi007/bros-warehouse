@@ -25,6 +25,7 @@ import tpv.core.annotation.Table;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class Entities {
+	final static Map<String, Class<? extends Entity>> MAP_TABLES = new HashMap<>();
 	final static Map<String, Class<? extends Entity>> MAP_PREFIXS = new HashMap<>();
 	final static Map<Class<? extends Entity>, TableInfo> MAP_ENTITIES = new HashMap<>();
 	static {
@@ -46,6 +47,7 @@ public class Entities {
 					TableInfo information = new TableInfo(entity);
 					MAP_ENTITIES.put(entity, information);
 					MAP_PREFIXS.put(information.prefix, entity);
+					MAP_TABLES.put(information.name, entity);
 				}
 
 				if (nativeClass.isAnnotationPresent(Mapper.class)) {
@@ -63,7 +65,14 @@ public class Entities {
 	/******************************************
 	 * PUBLIC METHODS
 	 ******************************************/
-	public static TableInfo tblInfo(Class<? extends Entity> entityClass) {
+	public static TableInfo tblInfoByTableName(String tableName) {
+		Class<? extends Entity> entityClass = MAP_TABLES.getOrDefault(tableName, null);
+		if (entityClass == null)
+			throw new RuntimeException("Table [" + tableName + "] is stranger ");
+		return MAP_ENTITIES.getOrDefault(entityClass, null);
+	}
+
+	public static TableInfo tblInfoByClassName(Class<? extends Entity> entityClass) {
 		if (entityClass.isAnnotationPresent(Table.class) == false) {
 			while (entityClass.isAnnotationPresent(Table.class) == false)
 				entityClass = (Class<? extends Entity>) entityClass.getSuperclass();
@@ -71,7 +80,7 @@ public class Entities {
 		return MAP_ENTITIES.getOrDefault(entityClass, null);
 	}
 
-	public static TableInfo tblInfo(String recordId) {
+	public static TableInfo tblInfoByRecordId(String recordId) {
 		String tablePrefix = recordId.substring(0,3);
 		Class<? extends Entity> entityClass = MAP_PREFIXS.getOrDefault(tablePrefix, null);
 		if (entityClass == null)
@@ -111,6 +120,9 @@ public class Entities {
 				}
 			}
 		}
+
+		public FieldInfo declaredField(String field) { return declaredFields.getOrDefault(field, null); }
+		public FieldInfo databaseField(String field) { return databaseFields.getOrDefault(field, null); }
 	}
 
 	public static class FieldInfo {

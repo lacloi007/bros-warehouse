@@ -28,7 +28,7 @@ public class QueryRuntimeStorage {
 		if (query.selectDefaultColumn)
 			select.add(0, Entity.ID);
 
-		tableInformation = Entities.tblInfo(query.fromEntity);
+		tableInformation = Entities.tblInfoByClassName(query.fromEntity);
 		tableName = tableInformation.getName();
 
 		where = new ArrayList<>();

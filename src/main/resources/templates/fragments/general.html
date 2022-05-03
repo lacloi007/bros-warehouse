@@ -11,7 +11,10 @@
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" th:href="@{/css/application.css?process=true}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
   <script th:src="@{/js/application.js?process=true}"></script>
@@ -48,6 +51,18 @@
     th:ng-class="|{'w3-border-red': error.hasError('${field}')}|"
   >
   <th:block th:include="this :: brsError"/>
+</th:block>
+
+<!-- brsInputInline -->
+<th:block th:fragment="brsInputInline">
+  <div class="w3-quarter w3-padding-right"><p class="bros-small-input"><label th:for="${field}"><b>[[${label}]]</b></label></p></div>
+  <div class="w3-threequarter w3-padding-left">
+    <input th:ng-model="|form.${field}|"
+      class="w3-input w3-border bros-small-input" th:type="${type}?:'text'" th:placeholder="|Enter ${label}|"
+      th:id="${field}" th:required="${required}?:null"
+      th:ng-class="|{'w3-border-red': error.hasError('${field}')}|">
+    <th:block th:include="this :: brsError"/>
+  </div>
 </th:block>
 
 <!-- brsInputSearch -->

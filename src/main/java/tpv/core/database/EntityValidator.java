@@ -28,7 +28,7 @@ public class EntityValidator {
 		, T instance
 	) {
 		boolean isUpdate = type == OperatorType.update;
-		TableInfo table = Entities.tblInfo(instance.getClass());
+		TableInfo table = Entities.tblInfoByClassName(instance.getClass());
 		PropertyAccessor accessor = PropertyAccessorFactory.forBeanPropertyAccess(instance);
 		for (FieldInfo field: table.databaseFields.values()) {
 			Column fieldColumn = field.getColumn();
