@@ -76,6 +76,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Các trang không yêu cầu login
 		http.authorizeRequests()
 			.antMatchers(Const.PUBLIC_URL).permitAll()
+			.antMatchers(HttpMethod.POST, "/register").permitAll()
+			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated()
 
 			.and().formLogin()
@@ -98,9 +100,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and().exceptionHandling().accessDeniedPage("/401.html")
 
 			// for restful
-			.and().authorizeHttpRequests()
-				.antMatchers(HttpMethod.POST, "/register").permitAll()
-				.antMatchers(HttpMethod.POST, "/receivingOrderCreate").hasAnyRole("ROLE_user")
 			.and().csrf().disable()
 
 			// Cấu hình Remember Me.

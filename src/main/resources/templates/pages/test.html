@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="w3-container" th:with="brsTable = 'BROS_RECEIVING_ORDER'">
+  <div>
+    <th:block th:include="fragments/column.html :: brsInput" 
+      th:with="brsColumn = 'BOX_ID'" />
+  </div>
+  <div>
+    <th:block th:include="fragments/column.html :: brsInput" 
+      th:with="brsColumn = 'PRODUCT_DESCRIPTION'" />
+  </div>
+  <div>
+    <th:block th:include="fragments/column.html :: brsInput" 
+      th:with="brsColumn = 'WEIGHT_UNIT'" />
+  </div>
+  <div>
+    <th:block th:include="fragments/column.html :: brsInput" 
+      th:with="brsColumn = 'NUMBER_OF_BOX'" />
+  </div>
+  <div>
+    <th:block th:include="fragments/column.html :: brsInput" 
+      th:with="brsColumn = 'SHIPING_DATE'" />
+  </div>
+</div>

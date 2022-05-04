@@ -15,7 +15,7 @@ public class ReceivingOrderMapper extends EntityMapper<ReceivingOrder> {
 	public final static String COLUMN___INCH_LENGTH = "INCH_LENGTH";
 	public final static String COLUMN___INCH_WIDTH = "INCH_WIDTH";
 	public final static String COLUMN___INCH_HEIGHT = "INCH_HEIGHT";
-	public final static String COLUMN___SHIPING_DATE = "SHIPING_DATE";
+	public final static String COLUMN___SHIPPING_DATE = "SHIPPING_DATE";
 	public final static String COLUMN___TRACKING_NUMBER = "TRACKING_NUMBER";
 	public final static String COLUMN___WAREHOUSE_ID = "WAREHOUSE_ID";
 	public final static String COLUMN___NEW_SKU = "NEW_SKU";

@@ -45,9 +45,13 @@ app.controller("userReceiveCreateCtrl", function($scope, $http, $window) {
     , {key: "epack", value: "E-Package"}
   ];
 
-  $scope.clickSave = function() {
-    $http({ method: "POST", url: "/receivingOrderCreate", data: angular.toJson($scope.form), headers: { 'Content-Type': 'application/json' }})
-     .then(__success, __error);
+  $scope.formSubmit = function() {
+    $http({ 
+        method: "PUT"
+      , url: "/api/ReceivingOrder"
+      , data: angular.toJson($scope.form)
+      , headers: { 'Content-Type': 'application/json' }
+    }).then(__success, __error);
   };
 
   function __toggleLoader() { $scope.loading = !($scope.loading); };

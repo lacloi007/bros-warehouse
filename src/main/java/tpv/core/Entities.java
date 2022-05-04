@@ -2,6 +2,7 @@ package tpv.core;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
@@ -128,13 +130,35 @@ public class Entities {
 	public static class FieldInfo {
 		@Getter String declaredField;
 		@Getter Column column;
+		@Getter Class<?> declaredClass;
+		@Getter final List<EnumInfo> enums = new ArrayList<>();
 
 		public FieldInfo(Field field) {
 			this.declaredField = field.getName();
 			this.column = field.getAnnotation(Column.class);
+			this.declaredClass = field.getType();
+			if (Enum.class == declaredClass.getSuperclass()) {
+				for (Object e: declaredClass.getEnumConstants())
+					enums.add(new EnumInfo(e));
+			}
 		}
 
 		public String getDatabaseField() { return column.name(); }
 		public String label() { return column.label(); }
+
+	}
+
+	public static class EnumInfo {
+		@Getter int ordinal;
+		@Getter String name, label;
+		public EnumInfo(Object item) {
+			try {
+				this.name = (String) MethodUtils.invokeExactMethod(item, "name");
+				this.ordinal = (Integer) MethodUtils.invokeExactMethod(item, "ordinal");
+				this.label = (String) MethodUtils.invokeExactMethod(item, "getLabel");
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }

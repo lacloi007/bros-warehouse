@@ -2,7 +2,7 @@ package tpv.core.define.enm;
 
 public enum ColumnType {
 	UNDEFINED
-	, ID             // PRIMARY KEY
+	, ID           // PRIMARY KEY
 	, REFERENCE    // Reference to another entity
 	, MASTER       // Reference to master entity
 	, TEXT         // TEXT
@@ -12,7 +12,8 @@ public enum ColumnType {
 	, URL          // URL
 	, DATE         // DATE
 	, DATE_TIME    // DATE_TIME
-	, CHECKBOX    // DATE_TIME
+	, CHECKBOX     // DATE_TIME
+	, TEXTAREA     // DATE_TIME
 
 	, SET          // SET (split by "|")
 	, ENUMERATE    // ENUM

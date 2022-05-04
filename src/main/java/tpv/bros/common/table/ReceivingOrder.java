@@ -27,7 +27,7 @@ public class ReceivingOrder extends Entity {
 	}
 
 	public final static ColExpr PRODUCT_DESCRIPTION = new ColExpr(ReceivingOrderMapper.COLUMN___PRODUCT_DESCRIPTION);
-	@Column(name = ReceivingOrderMapper.COLUMN___PRODUCT_DESCRIPTION, label = "Product description", type = ColumnType.TEXT)
+	@Column(name = ReceivingOrderMapper.COLUMN___PRODUCT_DESCRIPTION, label = "Product description", type = ColumnType.TEXTAREA)
 	@Getter private String productDescription;
 	public void setProductDescription(String productDescription) {
 		this.setter("productDescription");
@@ -90,12 +90,12 @@ public class ReceivingOrder extends Entity {
 		this.inchHeight = inchHeight;
 	}
 
-	public final static ColExpr SHIPING_DATE = new ColExpr(ReceivingOrderMapper.COLUMN___SHIPING_DATE);
-	@Column(name = ReceivingOrderMapper.COLUMN___SHIPING_DATE, label = "Shipping date", type = ColumnType.DATE_TIME)
-	@Getter private String shipingDate;
-	public void setShipingDate(String shipingDate) {
-		this.setter("shipingDate");
-		this.shipingDate = shipingDate;
+	public final static ColExpr SHIPPING_DATE = new ColExpr(ReceivingOrderMapper.COLUMN___SHIPPING_DATE);
+	@Column(name = ReceivingOrderMapper.COLUMN___SHIPPING_DATE, label = "Shipping date", type = ColumnType.DATE_TIME)
+	@Getter private String shippingDate;
+	public void setShippingDate(String shippingDate) {
+		this.setter("shippingDate");
+		this.shippingDate = shippingDate;
 	}
 
 	public final static ColExpr TRACKING_NUMBER = new ColExpr(ReceivingOrderMapper.COLUMN___TRACKING_NUMBER);

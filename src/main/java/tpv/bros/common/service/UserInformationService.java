@@ -37,6 +37,4 @@ public class UserInformationService implements UserDetailsService {
 			throw new UsernameNotFoundException("User " + username + " was not found in the database");
 		}
 	}
-
-	enum Role { user, admin, staff }
 }

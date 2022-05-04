@@ -2,6 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<!-- HEADER -->
+<!-- brsInput -->
 <th:block th:fragment="brsInput">
+  <th:block th:with="brs = ${#utils.entityColumn(brsTable, brsColumn, brsClass)}">
+    [(${brs.html})]
+    <th:block th:include="this :: brsError"/>
+  </th:block>
+</th:block>
+
+<!-- brsTableInput -->
+<th:block th:fragment="brsTableInput">
+  <th:block th:with="brs = ${#utils.entityColumn(brsTable, brsColumn, brsClass)}">
+    <td>
+      <p th:class="${brsClass}?:null">[(${brs.label})]</p>
+    </td>
+    <td th:colspan="${colspan}?:1">
+      [(${brs.html})]
+      <th:block th:include="this :: brsError"/>
+    </td>
+  </th:block>
+</th:block>
+
+<!-- brsError -->
+<th:block th:fragment="brsError">
+  <ul th:ng-show="|error.hasError('${brs.field}')|"
+    th:classappend="${brsErrorClass}?:null"
+    class="w3-ul w3-leftbar w3-flat-orange w3-small">
+    <li th:ng-repeat="|err in error.getErrors('${brs.field}')|">{{err}}</li>
+  </ul>
 </th:block>

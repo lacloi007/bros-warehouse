@@ -1,6 +1,7 @@
 package tpv.bros.common.security;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +19,10 @@ public class CurrentUserInfo {
 		return null;
 	}
 
+	public static Set<String> getRoles() { return Optional.ofNullable(loadActor()).map(Actor::getRoles).orElse(Set.of()); }
 	public static String getUserName() { return Optional.ofNullable(loadActor()).map(Actor::getUsername).orElse(DEFAULT_VALUE); }
 	public static String getUserId() { return Optional.ofNullable(loadActor()).map(Actor::getUserId).orElse(DEFAULT_VALUE); }
 	public static String getUserRole() { return Optional.ofNullable(loadActor()).map(Actor::getDefaultRole).orElse(DEFAULT_VALUE); }
 	public static String getCreatedBy() { return Optional.ofNullable(loadActor()).map(Actor::getUserId).orElse("C00B1X20220426X000000000000000"); }
+	public enum Role { user, admin, staff }
 }

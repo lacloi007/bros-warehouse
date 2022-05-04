@@ -4,7 +4,6 @@
 .w3-padding-left { padding-left: 4px; }
 .w3-margin-small { margin: 6px; }
 .w3-size-small { width: 16px; height: 16px; top: 3px;}
-.bros-small {}
 .bros-inline { display: inline-block; }
 .fa:hover { color:black !important; }
 .loader {
@@ -30,4 +29,6 @@
 
 .bros-small-button { padding: 2px 10px; margin: 12px 2px; }
 .bros-small-input { padding: 2px 10px; margin: 2px; }
+.brs-small { padding: 3px 2px 3px 6px; margin: 0px; }
+.brs-small-checkbox { display: block; position: inherit; width: 15px; }
 .w3-table td { padding: 2px 5px !important; }

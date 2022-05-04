@@ -19,7 +19,7 @@ public class User extends Entity {
 	}
 
 	public final static ColExpr PASSWORD = new ColExpr(UserMapper.COLUMN___PASSWORD);
-	@Column(name = UserMapper.COLUMN___PASSWORD, label = "Password", type = ColumnType.TEXT, mandatory = true, maxLength = 255)
+	@Column(name = UserMapper.COLUMN___PASSWORD, label = "Password", type = ColumnType.ENCRYPTION, mandatory = true, maxLength = 255)
 	@Getter private String password;
 	public void setPassword(String password) {
 		this.setter("password");
